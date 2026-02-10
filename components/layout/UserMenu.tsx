@@ -24,7 +24,7 @@ export function UserMenu({ email, variant = 'sidebar' }: UserMenuProps) {
           {initials}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-small text-text-primary truncate">{email}</p>
+          <p className="type-small text-text-primary truncate">{email}</p>
         </div>
         <button
           onClick={handleSignOut}
@@ -43,11 +43,11 @@ export function UserMenu({ email, variant = 'sidebar' }: UserMenuProps) {
         <div className="w-9 h-9 rounded-full bg-accent-subtle text-accent-text flex items-center justify-center text-[13px] font-semibold">
           {initials}
         </div>
-        <p className="text-small text-text-primary truncate">{email}</p>
+        <p className="type-small text-text-primary truncate">{email}</p>
       </div>
       <button
         onClick={handleSignOut}
-        className="flex items-center gap-2 px-3 py-2 text-small text-text-secondary hover:text-text-primary hover:bg-bg-hover rounded-md transition-colors duration-fast"
+        className="flex items-center gap-2 px-3 py-2 type-small text-text-secondary hover:text-text-primary hover:bg-bg-hover rounded-md transition-colors duration-fast"
       >
         <LogOut size={16} strokeWidth={1.5} />
         Sign out

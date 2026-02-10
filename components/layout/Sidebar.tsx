@@ -21,7 +21,7 @@ export function Sidebar({ email }: SidebarProps) {
   return (
     <aside className="fixed left-0 top-0 h-full w-[240px] bg-bg-secondary border-r border-border-subtle hidden lg:flex flex-col">
       <div className="flex items-center h-16 px-5 border-b border-border-subtle">
-        <span className="text-h3 text-text-primary">RoloDex</span>
+        <span className="type-h3">RoloDex</span>
       </div>
 
       <nav className="flex-1 p-3 flex flex-col gap-1">

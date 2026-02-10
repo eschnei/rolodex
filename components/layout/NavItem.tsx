@@ -47,7 +47,7 @@ export function NavItem({
       <Icon size={variant === 'sidebar' ? 18 : 20} strokeWidth={1.5} />
       <span
         className={
-          variant === 'sidebar' ? 'text-small font-medium' : 'text-[11px] font-medium'
+          variant === 'sidebar' ? 'type-small font-medium' : 'type-overline'
         }
       >
         {label}
