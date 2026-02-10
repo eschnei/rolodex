@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetCard — Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Colors — Core */
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --bg-inset: #F2F2F3;
+    --bg-hover: #EBEBEC;
+
+    /* Borders */
+    --border-primary: #E0E0E2;
+    --border-subtle: #EBEBEC;
+    --border-focus: #8B8B8E;
+
+    /* Text */
+    --text-primary: #1A1A1C;
+    --text-secondary: #6B6B6F;
+    --text-tertiary: #9C9CA0;
+    --text-inverse: #FFFFFF;
+
+    /* Accent — Indigo (Raycast-inspired) */
+    --accent: #5B5BD6;
+    --accent-hover: #4C4CC4;
+    --accent-subtle: #EDEDFC;
+    --accent-text: #4747B3;
+
+    /* Status */
+    --status-overdue: #E5484D;
+    --status-overdue-bg: #FEECEE;
+    --status-overdue-text: #CE2C31;
+    --status-due: #F09E00;
+    --status-due-bg: #FFF3D0;
+    --status-due-text: #AD6F00;
+    --status-ontrack: #30A46C;
+    --status-ontrack-bg: #E6F6ED;
+    --status-ontrack-text: #1D7D4E;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Typography */
+    --font-sans: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    --leading-tight: 1.2;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.65;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-sans);
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(255, 120, 75, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255, 170, 80, 0.2) 0%, transparent 45%),
+      radial-gradient(ellipse at 60% 80%, rgba(180, 80, 160, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(100, 60, 180, 0.15) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 70%, rgba(255, 100, 120, 0.15) 0%, transparent 40%),
+      linear-gradient(170deg, 
+        #1a0a2e 0%, 
+        #2d1b4e 8%,
+        #4a1942 18%, 
+        #6b2040 28%, 
+        #8b3a3a 38%,
+        #b85c3a 48%, 
+        #d4843a 56%,
+        #e8a84a 64%, 
+        #f0c75e 72%,
+        #f5d978 80%,
+        #fae89a 90%,
+        #fef4c4 100%
+      );
+    background-attachment: fixed;
+    color: var(--text-primary);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* Layout */
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-16);
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: var(--space-2);
+    color: #FFFFFF;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+
+  .page-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    max-width: 540px;
+  }
+
+  .section {
+    margin-bottom: var(--space-16);
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: var(--space-6);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Color Swatches */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .color-group-label {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-1);
+  }
+
+  .color-group-label:first-child { margin-top: 0; }
+
+  .color-swatch {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+  }
+
+  .color-swatch:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+
+  .swatch-preview {
+    height: 56px;
+    position: relative;
+  }
+
+  .swatch-info {
+    padding: var(--space-3) var(--space-3);
+  }
+
+  .swatch-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .swatch-meta {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  /* Typography Samples */
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.85);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(12px);
+    margin-bottom: var(--space-2);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .type-label {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  .type-sample-h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: var(--leading-tight); }
+  .type-sample-h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; line-height: var(--leading-tight); }
+  .type-sample-h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.1px; line-height: var(--leading-tight); }
+  .type-sample-body { font-size: 14px; font-weight: 400; line-height: var(--leading-relaxed); }
+  .type-sample-small { font-size: 13px; font-weight: 400; color: var(--text-secondary); line-height: var(--leading-relaxed); }
+  .type-sample-caption { font-size: 12px; font-weight: 500; color: var(--text-tertiary); line-height: var(--leading-normal); }
+  .type-sample-mono { font-size: 13px; font-family: var(--font-mono); color: var(--text-secondary); }
+  .type-sample-overline { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-tertiary); }
+
+  /* Spacing Visual */
+  .spacing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: flex-end;
+  }
+
+  .spacing-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .spacing-block {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--radius-sm);
+  }
+
+  .spacing-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* Components */
+  .component-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .component-block {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 
+      0 4px 16px rgba(0,0,0,0.08),
+      0 1px 4px rgba(0,0,0,0.04),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    backdrop-filter: blur(16px);
+  }
+
+  .component-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-tertiary);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-inset);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .component-preview {
+    padding: var(--space-8) var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .component-preview.vertical {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--text-inverse);
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+  }
+  .btn-secondary:hover { background: var(--bg-hover); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+  }
+  .btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+  .btn-danger {
+    background: var(--status-overdue);
+    color: var(--text-inverse);
+  }
+  .btn-danger:hover { background: #d13438; }
+
+  .btn-sm {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-lg {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s ease;
+    font-size: 16px;
+  }
+  .btn-icon:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+  /* Inputs */
+  .input {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    width: 100%;
+    max-width: 320px;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    outline: none;
+  }
+  .input::placeholder { color: var(--text-tertiary); }
+  .input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
+
+  .textarea {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    width: 100%;
+    max-width: 480px;
+    min-height: 80px;
+    resize: vertical;
+    outline: none;
+    line-height: var(--leading-relaxed);
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  }
+  .textarea::placeholder { color: var(--text-tertiary); }
+  .textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
+
+  .select {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236B6B6F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    transition: border-color 0.12s ease;
+  }
+  .select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.1px;
+  }
+
+  .badge-overdue { background: var(--status-overdue-bg); color: var(--status-overdue-text); }
+  .badge-due { background: var(--status-due-bg); color: var(--status-due-text); }
+  .badge-ontrack { background: var(--status-ontrack-bg); color: var(--status-ontrack-text); }
+  .badge-neutral { background: var(--bg-inset); color: var(--text-secondary); }
+  .badge-accent { background: var(--accent-subtle); color: var(--accent-text); }
+
+  /* Card */
+  .card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: var(--space-5);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .card-body {
+    padding: var(--space-5);
+  }
+
+  .card-footer {
+    padding: var(--space-3) var(--space-5);
+    background: var(--bg-inset);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* Example Contact Card */
+  .contact-card {
+    max-width: 480px;
+  }
+
+  .contact-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .contact-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .contact-name {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+  }
+
+  .contact-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+
+  .contact-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-inset);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--accent);
+  }
+
+  .contact-field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .contact-field-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin-bottom: 2px;
+  }
+
+  .contact-field-value {
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+  }
+
+  .action-item input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--accent);
+  }
+
+  .action-item span {
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  .action-item.completed span {
+    text-decoration: line-through;
+    color: var(--text-tertiary);
+  }
+
+  .note-entry {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .note-entry:last-child { border-bottom: none; }
+
+  .note-timestamp {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-1);
+  }
+
+  .note-content {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Dashboard List Item */
+  .dash-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.1s ease;
+  }
+
+  .dash-item:hover { background: var(--bg-hover); }
+
+  .dash-item-info { flex: 1; min-width: 0; }
+
+  .dash-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .dash-item-detail {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dash-item-days {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  /* Radius Samples */
+  .radius-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    align-items: flex-end;
+  }
+
+  .radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .radius-box {
+    width: 64px;
+    height: 64px;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .radius-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* Shadow Samples */
+  .shadow-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .shadow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .shadow-box {
+    width: 100px;
+    height: 72px;
+    background: rgba(255,255,255,0.9);
+    border-radius: var(--radius-md);
+  }
+
+  .shadow-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* Code block */
+  .code-block {
+    background: rgba(26, 10, 46, 0.88);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+    overflow-x: auto;
+    white-space: pre;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(16px);
+  }
+
+  .token-key { color: #f0c75e; }
+  .token-val { color: #7dd3a8; }
+  .token-comment { color: rgba(255,255,255,0.35); }
+
+  /* Principles */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .principle-card {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: 
+      0 4px 16px rgba(0,0,0,0.06),
+      0 1px 3px rgba(0,0,0,0.04),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    backdrop-filter: blur(16px);
+    transition: all 0.2s ease;
+  }
+
+  .principle-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 24px rgba(0,0,0,0.1),
+      0 2px 6px rgba(0,0,0,0.05),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  .principle-icon {
+    font-size: 22px;
+    margin-bottom: var(--space-3);
+  }
+
+  .principle-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+
+  .principle-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Do / Don't */
+  .dos-donts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .do-card, .dont-card {
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: 13px;
+    line-height: var(--leading-relaxed);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .do-card {
+    background: rgba(230, 246, 237, 0.92);
+    border: 1px solid rgba(180, 223, 202, 0.6);
+    color: var(--status-ontrack-text);
+  }
+
+  .dont-card {
+    background: rgba(254, 236, 238, 0.92);
+    border: 1px solid rgba(245, 194, 196, 0.6);
+    color: var(--status-overdue-text);
+  }
+
+  .do-card strong, .dont-card strong {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page { padding: var(--space-10) var(--space-4); }
+    .type-row { grid-template-columns: 1fr; gap: var(--space-1); }
+    .color-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-field-grid { grid-template-columns: 1fr; }
+    .dos-donts { grid-template-columns: 1fr; }
+    .principles-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-primary); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>NetCard</h1>
+    <p>Style guide for a personal networking CRM. Clean cards floating on warmth — inspired by Raycast's precision and sunset skies.</p>
+  </div>
+
+  <!-- Design Principles -->
+  <div class="section">
+    <div class="section-title">Design Principles</div>
+    <div class="principles-grid">
+      <div class="principle-card">
+        <div class="principle-icon">⚡</div>
+        <div class="principle-title">Speed over chrome</div>
+        <div class="principle-desc">Every interaction should feel instant. No loading spinners for local actions. Optimistic updates everywhere. The UI should never slow you down.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🧹</div>
+        <div class="principle-title">Reduce to essentials</div>
+        <div class="principle-desc">If a UI element doesn't directly serve the task, remove it. No decorative flourishes. No redundant labels. White space is a feature.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🪟</div>
+        <div class="principle-title">Information density done right</div>
+        <div class="principle-desc">Show enough context to act without scrolling, but never overwhelm. Scannable layouts with clear hierarchy. Density through structure, not clutter.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🤖</div>
+        <div class="principle-title">AI stays in the background</div>
+        <div class="principle-desc">AI powers summaries and extraction but never demands attention. No "✨ AI Generated" badges. The intelligence should feel built in, not bolted on.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colors -->
+  <div class="section">
+    <div class="section-title">Colors</div>
+    <div class="section-desc">Light mode only. Neutral foundation with a single indigo accent. Status colors are reserved strictly for cadence indicators — never decorative.</div>
+
+    <div class="color-grid">
+      <div class="color-group-label">Backgrounds</div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #FAFAFA; border-bottom: 1px solid #E0E0E2;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary Background</div>
+          <div class="swatch-meta">#FAFAFA · --bg-primary</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #FFFFFF; border-bottom: 1px solid #E0E0E2;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Secondary / Card</div>
+          <div class="swatch-meta">#FFFFFF · --bg-secondary</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #F2F2F3; border-bottom: 1px solid #E0E0E2;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Inset / Recessed</div>
+          <div class="swatch-meta">#F2F2F3 · --bg-inset</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #EBEBEC; border-bottom: 1px solid #E0E0E2;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Hover</div>
+          <div class="swatch-meta">#EBEBEC · --bg-hover</div>
+        </div>
+      </div>
+
+      <div class="color-group-label">Text</div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #1A1A1C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary Text</div>
+          <div class="swatch-meta">#1A1A1C · --text-primary</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #6B6B6F;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Secondary Text</div>
+          <div class="swatch-meta">#6B6B6F · --text-secondary</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #9C9CA0;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Tertiary Text</div>
+          <div class="swatch-meta">#9C9CA0 · --text-tertiary</div>
+        </div>
+      </div>
+
+      <div class="color-group-label">Accent</div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #5B5BD6;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent</div>
+          <div class="swatch-meta">#5B5BD6 · --accent</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #EDEDFC; border-bottom: 1px solid #E0E0E2;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent Subtle</div>
+          <div class="swatch-meta">#EDEDFC · --accent-subtle</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #4747B3;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent Text</div>
+          <div class="swatch-meta">#4747B3 · --accent-text</div>
+        </div>
+      </div>
+
+      <div class="color-group-label">Status — Cadence Only</div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #E5484D;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Overdue</div>
+          <div class="swatch-meta">#E5484D · --status-overdue</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #F09E00;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Due Soon</div>
+          <div class="swatch-meta">#F09E00 · --status-due</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background: #30A46C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">On Track</div>
+          <div class="swatch-meta">#30A46C · --status-ontrack</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="section">
+    <div class="section-title">Typography</div>
+    <div class="section-desc">JetBrains Mono everywhere — a single typeface for the entire app. Tight letter-spacing on headings, relaxed line-height on body text. The monospace character gives the UI a technical, precise feel.</div>
+
+    <div class="type-scale">
+      <div class="type-row">
+        <div class="type-label">H1 · 28/700</div>
+        <div class="type-sample-h1">Your Network</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">H2 · 22/600</div>
+        <div class="type-sample-h2">Contact Details</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">H3 · 17/600</div>
+        <div class="type-sample-h3">Buck Thompson</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Body · 14/400</div>
+        <div class="type-sample-body">Last talked about his Q2 hiring plans and the Black Lake trip with his family. He offered to intro you to Dave at Techstars.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Small · 13/400</div>
+        <div class="type-sample-small">VP of Engineering at Acme Corp · Denver, CO</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Caption · 12/500</div>
+        <div class="type-sample-caption">Last contacted 12 days ago</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Mono · 13/400</div>
+        <div class="type-sample-mono">2025-02-08 · 14:32</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Overline · 11/600</div>
+        <div class="type-sample-overline">Action Items</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spacing -->
+  <div class="section">
+    <div class="section-title">Spacing</div>
+    <div class="section-desc">4px base unit. Use multiples for consistency. Most internal padding uses space-4 (16px) or space-5 (20px). Gaps between sections use space-8 (32px) or space-10 (40px).</div>
+
+    <div class="spacing-grid">
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:16px; height:16px;"></div>
+        <div class="spacing-label">4 · sp-1</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:20px; height:20px;"></div>
+        <div class="spacing-label">8 · sp-2</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:24px; height:24px;"></div>
+        <div class="spacing-label">12 · sp-3</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:28px; height:28px;"></div>
+        <div class="spacing-label">16 · sp-4</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:32px; height:32px;"></div>
+        <div class="spacing-label">20 · sp-5</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:36px; height:36px;"></div>
+        <div class="spacing-label">24 · sp-6</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:44px; height:44px;"></div>
+        <div class="spacing-label">32 · sp-8</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:52px; height:52px;"></div>
+        <div class="spacing-label">40 · sp-10</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:60px; height:60px;"></div>
+        <div class="spacing-label">48 · sp-12</div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width:76px; height:76px;"></div>
+        <div class="spacing-label">64 · sp-16</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Radius -->
+  <div class="section">
+    <div class="section-title">Border Radius</div>
+    <div class="radius-grid">
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 6px;"></div>
+        <div class="radius-label">6px · sm</div>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 8px;"></div>
+        <div class="radius-label">8px · md</div>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 12px;"></div>
+        <div class="radius-label">12px · lg</div>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 16px;"></div>
+        <div class="radius-label">16px · xl</div>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 50%;"></div>
+        <div class="radius-label">50% · full</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shadows -->
+  <div class="section">
+    <div class="section-title">Shadows</div>
+    <div class="section-desc">Subtle and layered. Used sparingly — primarily on elevated cards, dropdowns, and modals. Most surfaces use borders instead of shadows.</div>
+    <div class="shadow-grid">
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 1px 2px rgba(0,0,0,0.04);"></div>
+        <div class="shadow-label">sm</div>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);"></div>
+        <div class="shadow-label">md</div>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);"></div>
+        <div class="shadow-label">lg</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="section">
+    <div class="section-title">Components</div>
+
+    <div class="component-grid">
+      <div class="component-block">
+        <div class="component-label">Buttons</div>
+        <div class="component-preview">
+          <button class="btn btn-primary">Save Note</button>
+          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-ghost">Skip</button>
+          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-primary btn-sm">Add</button>
+          <button class="btn btn-secondary btn-sm">Edit</button>
+          <button class="btn-icon">＋</button>
+          <button class="btn-icon">⋯</button>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="component-block">
+        <div class="component-label">Inputs</div>
+        <div class="component-preview vertical" style="gap: 16px;">
+          <input class="input" type="text" placeholder="Search contacts..." />
+          <textarea class="textarea" placeholder="Jot notes during your call..."></textarea>
+          <select class="select" style="max-width: 200px;">
+            <option>Monthly</option>
+            <option>Biweekly</option>
+            <option>Weekly</option>
+            <option>Quarterly</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="component-block">
+        <div class="component-label">Badges — Status</div>
+        <div class="component-preview">
+          <span class="badge badge-overdue">Overdue · 31d</span>
+          <span class="badge badge-due">Due Soon · 2d</span>
+          <span class="badge badge-ontrack">On Track</span>
+          <span class="badge badge-neutral">No cadence</span>
+          <span class="badge badge-accent">Transcript</span>
+        </div>
+      </div>
+
+      <!-- Contact Card Example -->
+      <div class="component-block">
+        <div class="component-label">Contact Card — Live Call View</div>
+        <div class="component-preview vertical">
+          <div class="card contact-card">
+            <div class="card-header">
+              <div class="contact-header">
+                <div class="contact-avatar">BT</div>
+                <div>
+                  <div class="contact-name">Buck Thompson</div>
+                  <div class="contact-meta">VP Engineering · Acme Corp · Denver, CO</div>
+                </div>
+                <span class="badge badge-overdue" style="margin-left: auto;">Overdue · 31d</span>
+              </div>
+            </div>
+            <div class="card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <!-- AI Summary -->
+              <div>
+                <div class="type-sample-overline" style="margin-bottom: 6px;">Summary</div>
+                <div class="contact-summary">
+                  Buck leads engineering at Acme Corp and is hiring 3 engineers in Q2. Loves fly fishing at Black Lake, CO with his family every summer. Daughter starts CU Boulder in fall. Offered to intro you to Dave at Techstars — still pending. Last discussed his team's migration to Kubernetes.
+                </div>
+              </div>
+
+              <!-- Quick Fields -->
+              <div class="contact-field-grid">
+                <div>
+                  <div class="contact-field-label">How We Met</div>
+                  <div class="contact-field-value">Denver Startup Week 2024</div>
+                </div>
+                <div>
+                  <div class="contact-field-label">Cadence</div>
+                  <div class="contact-field-value">Monthly</div>
+                </div>
+                <div>
+                  <div class="contact-field-label">Prefers</div>
+                  <div class="contact-field-value">Email</div>
+                </div>
+                <div>
+                  <div class="contact-field-label">Last Contacted</div>
+                  <div class="contact-field-value">Jan 10, 2025</div>
+                </div>
+              </div>
+
+              <!-- Action Items -->
+              <div>
+                <div class="type-sample-overline" style="margin-bottom: 8px;">Action Items</div>
+                <div class="action-item">
+                  <input type="checkbox" />
+                  <span>Send Buck the Denver AI meetup invite</span>
+                </div>
+                <div class="action-item">
+                  <input type="checkbox" />
+                  <span>Ask for intro to Dave at Techstars</span>
+                </div>
+                <div class="action-item completed">
+                  <input type="checkbox" checked />
+                  <span>Share K8s migration article</span>
+                </div>
+              </div>
+
+              <!-- Notes -->
+              <div>
+                <div class="type-sample-overline" style="margin-bottom: 8px;">Notes</div>
+                <textarea class="textarea" style="max-width: 100%; min-height: 60px;" placeholder="Jot notes during your call..."></textarea>
+                <div style="margin-top: 8px; display: flex; justify-content: flex-end;">
+                  <button class="btn btn-primary btn-sm">Save Note</button>
+                </div>
+              </div>
+
+              <!-- Past Notes -->
+              <div>
+                <div class="note-entry">
+                  <div class="note-timestamp">Jan 10, 2025 · 2:15 PM</div>
+                  <div class="note-content">Caught up about his team growth — hiring 3 engineers in Q2. His daughter got into CU Boulder. Wants to connect me with Dave at Techstars about our AI tooling. He's migrating infra to Kubernetes and I shared some resources.</div>
+                </div>
+                <div class="note-entry">
+                  <div class="note-timestamp">Dec 4, 2024 · 10:30 AM</div>
+                  <div class="note-content">Quick coffee at Thump. Talked about his Black Lake trip — goes every July with his kids. Interested in what we're building at Cora. Mentioned he knows people at Datadog who might be good to connect with.</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
+              <button class="btn btn-secondary btn-sm">✓ &nbsp;I just reached out</button>
+              <button class="btn btn-ghost btn-sm">Upload transcript</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard List -->
+      <div class="component-block">
+        <div class="component-label">Dashboard — Nudge List</div>
+        <div class="component-preview vertical" style="padding: 12px 0;">
+          <div class="dash-item">
+            <div class="contact-avatar" style="width:36px; height:36px; font-size:13px;">BT</div>
+            <div class="dash-item-info">
+              <div class="dash-item-name">Buck Thompson</div>
+              <div class="dash-item-detail">Last discussed K8s migration and Techstars intro</div>
+            </div>
+            <span class="badge badge-overdue">31d</span>
+          </div>
+          <div class="dash-item">
+            <div class="contact-avatar" style="width:36px; height:36px; font-size:13px;">SC</div>
+            <div class="dash-item-info">
+              <div class="dash-item-name">Sarah Chen</div>
+              <div class="dash-item-detail">Series A closing — send congrats</div>
+            </div>
+            <span class="badge badge-due">2d</span>
+          </div>
+          <div class="dash-item">
+            <div class="contact-avatar" style="width:36px; height:36px; font-size:13px;">JR</div>
+            <div class="dash-item-info">
+              <div class="dash-item-name">James Rivera</div>
+              <div class="dash-item-detail">New role at Stripe — hasn't been contacted yet</div>
+            </div>
+            <span class="badge badge-overdue">45d</span>
+          </div>
+          <div class="dash-item">
+            <div class="contact-avatar" style="width:36px; height:36px; font-size:13px;">ML</div>
+            <div class="dash-item-info">
+              <div class="dash-item-name">Maria Lopez</div>
+              <div class="dash-item-detail">Quarterly check-in — ask about Denver expansion</div>
+            </div>
+            <span class="badge badge-ontrack">On Track</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do's and Don'ts -->
+  <div class="section">
+    <div class="section-title">Design Do's & Don'ts</div>
+    <div class="dos-donts">
+      <div class="do-card">
+        <strong>✓ Do</strong>
+        Use borders to define surfaces. Keep shadows for elevated layers only (modals, dropdowns). Let white space create hierarchy. Use the accent color sparingly — buttons and active states only. Make every tap/click do something useful.
+      </div>
+      <div class="dont-card">
+        <strong>✗ Don't</strong>
+        Add shadows to every card. Use color to decorate. Put "AI" badges on generated content. Add confirmation modals for reversible actions. Use icons without labels on primary actions. Nest more than 2 levels of navigation.
+      </div>
+    </div>
+  </div>
+
+  <!-- CSS Variables Reference -->
+  <div class="section">
+    <div class="section-title">CSS Variables — Quick Reference</div>
+    <div class="code-block"><span class="token-comment">/* Paste into your globals.css */</span>
+
+<span class="token-key">--bg-primary</span>: <span class="token-val">#FAFAFA</span>;
+<span class="token-key">--bg-secondary</span>: <span class="token-val">#FFFFFF</span>;
+<span class="token-key">--bg-inset</span>: <span class="token-val">#F2F2F3</span>;
+<span class="token-key">--bg-hover</span>: <span class="token-val">#EBEBEC</span>;
+
+<span class="token-key">--border-primary</span>: <span class="token-val">#E0E0E2</span>;
+<span class="token-key">--border-subtle</span>: <span class="token-val">#EBEBEC</span>;
+<span class="token-key">--border-focus</span>: <span class="token-val">#8B8B8E</span>;
+
+<span class="token-key">--text-primary</span>: <span class="token-val">#1A1A1C</span>;
+<span class="token-key">--text-secondary</span>: <span class="token-val">#6B6B6F</span>;
+<span class="token-key">--text-tertiary</span>: <span class="token-val">#9C9CA0</span>;
+
+<span class="token-key">--accent</span>: <span class="token-val">#5B5BD6</span>;
+<span class="token-key">--accent-hover</span>: <span class="token-val">#4C4CC4</span>;
+<span class="token-key">--accent-subtle</span>: <span class="token-val">#EDEDFC</span>;
+<span class="token-key">--accent-text</span>: <span class="token-val">#4747B3</span>;
+
+<span class="token-key">--status-overdue</span>: <span class="token-val">#E5484D</span>;
+<span class="token-key">--status-due</span>: <span class="token-val">#F09E00</span>;
+<span class="token-key">--status-ontrack</span>: <span class="token-val">#30A46C</span>;
+
+<span class="token-key">--font-sans</span>: <span class="token-val">'JetBrains Mono', 'SF Mono', monospace</span>;
+<span class="token-key">--font-mono</span>: <span class="token-val">'JetBrains Mono', 'SF Mono', monospace</span>;
+
+<span class="token-key">--radius-sm</span>: <span class="token-val">6px</span>;
+<span class="token-key">--radius-md</span>: <span class="token-val">8px</span>;
+<span class="token-key">--radius-lg</span>: <span class="token-val">12px</span>;
+<span class="token-key">--radius-xl</span>: <span class="token-val">16px</span>;</div>
+  </div>
+
+  <!-- Icon Guidance -->
+  <div class="section">
+    <div class="section-title">Iconography</div>
+    <div class="section-desc" style="color: rgba(255,255,255,0.65);">Use <strong style="color: rgba(255,255,255,0.85);">Lucide Icons</strong> (lucide.dev) — 1.5px stroke weight, 20px default size. Icons should always accompany text on primary actions. Icon-only buttons are acceptable for secondary actions (edit, delete, more menu) when the context is clear. Keep icons at --text-secondary color by default, --text-primary on hover.</div>
+  </div>
+
+  <!-- Motion -->
+  <div class="section">
+    <div class="section-title">Motion</div>
+    <div class="section-desc" style="color: rgba(255,255,255,0.65);">Transitions use 120ms ease for micro-interactions (hover, focus) and 200ms ease for layout changes (expanding sections, modals). No bouncing, no elastic easing. If something can feel instant, make it instant. Skeleton loading states over spinners — but at 50 contacts, most things should load before you notice.</div>
+  </div>
+
+</div>
+</body>
+</html>
