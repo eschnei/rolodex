@@ -28,7 +28,7 @@ export default async function AppLayout({
     (profile as { timezone?: string | null } | null)?.timezone ?? null;
 
   return (
-    <div className="min-h-screen bg-bg-primary">
+    <div className="min-h-screen bg-brand-gradient">
       <TimezoneDetector currentTimezone={timezone} />
 
       {/* Sidebar for desktop (>= 1024px) */}
