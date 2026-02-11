@@ -6,6 +6,7 @@ export { ContactList } from './ContactList';
 export { ContactForm } from './ContactForm';
 export { ContactHeader } from './ContactHeader';
 export { ContactInfo } from './ContactInfo';
+export { ContactDetailCard } from './ContactDetailCard';
 export { ContactSummary, ContactSummarySkeleton } from './ContactSummary';
 export { ContactSummarySection } from './ContactSummarySection';
 export { NotesAndActionsSection } from './NotesAndActionsSection';
