@@ -32,7 +32,8 @@ export async function signIn(
 
 export async function signUp(
   email: string,
-  password: string
+  password: string,
+  name?: string
 ): Promise<AuthResult> {
   const supabase = await createClient();
 
@@ -44,11 +45,14 @@ export async function signUp(
     };
   }
 
-  const { error } = await supabase.auth.signUp({
+  const { error, data } = await supabase.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/callback`,
+      data: {
+        name: name || null,
+      },
     },
   });
 
@@ -64,6 +68,14 @@ export async function signUp(
       success: false,
       error: error.message,
     };
+  }
+
+  // Update the user profile with the name
+  if (data.user && name) {
+    await supabase
+      .from('users')
+      .update({ name })
+      .eq('id', data.user.id);
   }
 
   return {

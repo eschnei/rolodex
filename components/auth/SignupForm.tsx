@@ -6,6 +6,8 @@ import { signUp } from '@/lib/actions/auth';
 import { Button, Input, Card, CardBody } from '@/components/ui';
 
 export default function SignupForm() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,6 +19,12 @@ export default function SignupForm() {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    // Validate first name
+    if (!firstName.trim()) {
+      setError('First name is required');
+      return;
+    }
 
     // Validate passwords match
     if (password !== confirmPassword) {
@@ -33,7 +41,10 @@ export default function SignupForm() {
     setIsLoading(true);
 
     try {
-      const result = await signUp(email, password);
+      const fullName = lastName.trim()
+        ? `${firstName.trim()} ${lastName.trim()}`
+        : firstName.trim();
+      const result = await signUp(email, password, fullName);
 
       if (!result.success) {
         setError(result.error || 'Failed to create account');
@@ -43,6 +54,8 @@ export default function SignupForm() {
 
       setSuccess('Check your email for a confirmation link.');
       // Clear form
+      setFirstName('');
+      setLastName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -74,6 +87,27 @@ export default function SignupForm() {
               <p className="text-[14px] text-status-ontrack-text">{success}</p>
             </div>
           )}
+
+          {/* Name Fields */}
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              type="text"
+              label="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Jane"
+              required
+              disabled={isLoading || !!success}
+            />
+            <Input
+              type="text"
+              label="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Doe"
+              disabled={isLoading || !!success}
+            />
+          </div>
 
           {/* Email Field */}
           <Input
