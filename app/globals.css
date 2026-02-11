@@ -266,32 +266,23 @@ body {
    ======================================== */
 
 /**
- * Premium sunset gradient background
- * Inspired by sunset skies with warm, organic color transitions
- * Use on auth pages and landing sections
+ * Premium dusk gradient background
+ * Smooth transition from deep navy to purple-magenta
+ * Use on auth pages and app background
  */
 .bg-brand-gradient {
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(255, 120, 75, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(255, 170, 80, 0.2) 0%, transparent 45%),
-    radial-gradient(ellipse at 60% 80%, rgba(180, 80, 160, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(100, 60, 180, 0.15) 0%, transparent 45%),
-    radial-gradient(ellipse at 90% 70%, rgba(255, 100, 120, 0.15) 0%, transparent 40%),
-    linear-gradient(
-      170deg,
-      #1a0a2e 0%,
-      #2d1b4e 8%,
-      #4a1942 18%,
-      #6b2040 28%,
-      #8b3a3a 38%,
-      #b85c3a 48%,
-      #d4843a 56%,
-      #e8a84a 64%,
-      #f0c75e 72%,
-      #f5d978 80%,
-      #fae89a 90%,
-      #fef4c4 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #1a1b3a 0%,
+    #252552 15%,
+    #2d2460 30%,
+    #3a2468 45%,
+    #4a2570 55%,
+    #5c2668 65%,
+    #6e2860 75%,
+    #7a2a58 85%,
+    #862c50 100%
+  );
   background-attachment: fixed;
 }
 
