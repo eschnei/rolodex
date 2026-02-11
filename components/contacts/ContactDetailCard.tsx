@@ -1,5 +1,6 @@
 'use client';
 
+import { Linkedin } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { RelativeTime } from '@/components/ui/RelativeTime';
 import { type Contact } from '@/lib/database.types';
@@ -69,6 +70,16 @@ export function ContactDetailCard({ contact, className }: ContactDetailCardProps
         </h3>
 
         <div className="grid grid-cols-[100px_1fr] gap-y-3 gap-x-4">
+          {/* Name Phonetics */}
+          {contact.name_phonetic && (
+            <>
+              <span className="text-[12px] text-[rgba(255,255,255,0.5)]">Pronounced</span>
+              <span className="text-[13px] text-[rgba(255,255,255,0.95)] italic">
+                {contact.name_phonetic}
+              </span>
+            </>
+          )}
+
           {/* Email */}
           {contact.email && (
             <>
@@ -91,6 +102,22 @@ export function ContactDetailCard({ contact, className }: ContactDetailCardProps
                 className="text-[13px] text-accent hover:text-accent-hover hover:underline transition-colors"
               >
                 {contact.phone}
+              </a>
+            </>
+          )}
+
+          {/* LinkedIn */}
+          {contact.linkedin_url && (
+            <>
+              <span className="text-[12px] text-[rgba(255,255,255,0.5)]">LinkedIn</span>
+              <a
+                href={contact.linkedin_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[13px] text-accent hover:text-accent-hover hover:underline transition-colors"
+              >
+                <Linkedin size={14} />
+                <span>View Profile</span>
               </a>
             </>
           )}

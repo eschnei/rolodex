@@ -64,6 +64,20 @@ export const createContactSchema = z.object({
     .optional()
     .nullable()
     .transform((val) => (val && val.trim() !== '' ? val : null)),
+  linkedin_url: z
+    .string()
+    .url('Please enter a valid URL')
+    .max(500, 'LinkedIn URL must be 500 characters or less')
+    .optional()
+    .nullable()
+    .or(z.literal(''))
+    .transform((val) => (val && val.trim() !== '' ? val : null)),
+  name_phonetic: z
+    .string()
+    .max(200, 'Name phonetics must be 200 characters or less')
+    .optional()
+    .nullable()
+    .transform((val) => (val && val.trim() !== '' ? val : null)),
   communication_preference: z
     .enum(communicationPreferences)
     .default('email'),

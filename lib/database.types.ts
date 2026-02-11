@@ -74,6 +74,8 @@ export interface Database {
           role: string | null;
           location: string | null;
           how_we_met: string | null;
+          linkedin_url: string | null;
+          name_phonetic: string | null;
           communication_preference: CommunicationPreference;
           personal_intel: string | null;
           cadence_days: number | null;
@@ -93,6 +95,8 @@ export interface Database {
           role?: string | null;
           location?: string | null;
           how_we_met?: string | null;
+          linkedin_url?: string | null;
+          name_phonetic?: string | null;
           communication_preference?: CommunicationPreference;
           personal_intel?: string | null;
           cadence_days?: number | null;
@@ -112,6 +116,8 @@ export interface Database {
           role?: string | null;
           location?: string | null;
           how_we_met?: string | null;
+          linkedin_url?: string | null;
+          name_phonetic?: string | null;
           communication_preference?: CommunicationPreference;
           personal_intel?: string | null;
           cadence_days?: number | null;

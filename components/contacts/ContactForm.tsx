@@ -127,6 +127,15 @@ export function ContactForm({ contact, onSuccess }: ContactFormProps) {
           />
         </div>
 
+        <Input
+          label="Name Phonetics"
+          name="name_phonetic"
+          placeholder="JAHN DOH"
+          defaultValue={contact?.name_phonetic || ''}
+          error={err('name_phonetic')}
+          helperText="Pronunciation guide for their name"
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             label="Email"
@@ -168,13 +177,23 @@ export function ContactForm({ contact, onSuccess }: ContactFormProps) {
           />
         </div>
 
-        <Input
-          label="Location"
-          name="location"
-          placeholder="San Francisco, CA"
-          defaultValue={contact?.location || ''}
-          error={err('location')}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="Location"
+            name="location"
+            placeholder="San Francisco, CA"
+            defaultValue={contact?.location || ''}
+            error={err('location')}
+          />
+          <Input
+            label="LinkedIn"
+            name="linkedin_url"
+            type="url"
+            placeholder="https://linkedin.com/in/johndoe"
+            defaultValue={contact?.linkedin_url || ''}
+            error={err('linkedin_url')}
+          />
+        </div>
       </section>
 
       {/* Context Section */}
