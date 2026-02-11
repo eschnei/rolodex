@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { cn } from '@/lib/utils/cn';
+import { CsvImport } from '@/components/settings/CsvImport';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,7 +22,8 @@ export default async function SettingsPage() {
     .single();
 
   return (
-    <div className="p-4 md:p-6">
+    <div className="p-4 md:p-6 space-y-6">
+      {/* Account Section */}
       <div
         className={cn(
           'rounded-[16px] overflow-hidden',
@@ -57,6 +59,27 @@ export default async function SettingsPage() {
               </span>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Import Contacts Section */}
+      <div
+        className={cn(
+          'rounded-[16px] overflow-hidden',
+          'bg-[rgba(255,255,255,0.08)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.12)]',
+          'shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
+        )}
+      >
+        <div className="p-5 md:p-6">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.5)] mb-4">
+            Import Contacts
+          </h2>
+          <p className="text-[13px] text-[rgba(255,255,255,0.6)] mb-4">
+            Upload a CSV file to import contacts. You can map columns during upload and review duplicates before importing.
+          </p>
+          <CsvImport />
         </div>
       </div>
     </div>
