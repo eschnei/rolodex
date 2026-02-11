@@ -7,6 +7,7 @@ export { ContactForm } from './ContactForm';
 export { ContactHeader } from './ContactHeader';
 export { ContactInfo } from './ContactInfo';
 export { ContactDetailCard } from './ContactDetailCard';
+export { ContactFullCard } from './ContactFullCard';
 export { ContactSummary, ContactSummarySkeleton } from './ContactSummary';
 export { ContactSummarySection } from './ContactSummarySection';
 export { NotesAndActionsSection } from './NotesAndActionsSection';

@@ -81,12 +81,12 @@ export function ContactList({ contacts }: ContactListProps) {
           className={cn(
             'p-8 text-center',
             'rounded-[16px]',
-            'bg-[rgba(255,255,255,0.6)]',
-            'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
-            'border border-[rgba(255,255,255,0.25)]'
+            'bg-[rgba(255,255,255,0.08)]',
+            'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+            'border border-[rgba(255,255,255,0.12)]'
           )}
         >
-          <p className="text-[14px] text-[rgba(26,26,28,0.65)]">
+          <p className="text-[14px] text-[rgba(255,255,255,0.6)]">
             No contacts match &quot;{debouncedQuery}&quot;
           </p>
           <button

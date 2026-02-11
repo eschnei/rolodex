@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
-import { PageContainer, SkeletonList } from '@/components/ui';
+import { SkeletonList } from '@/components/ui';
 import { ContactsHeader } from '@/components/contacts/ContactsHeader';
 import { ContactList } from '@/components/contacts/ContactList';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
-  title: 'Contacts | RoloDex',
+  title: 'Contacts | ROLO',
   description: 'Manage your personal network contacts',
 };
 
@@ -26,11 +26,11 @@ async function ContactsContent() {
 
 export default function ContactsPage() {
   return (
-    <PageContainer>
+    <div className="p-4 md:p-6">
       <ContactsHeader />
       <Suspense fallback={<SkeletonList items={5} />}>
         <ContactsContent />
       </Suspense>
-    </PageContainer>
+    </div>
   );
 }

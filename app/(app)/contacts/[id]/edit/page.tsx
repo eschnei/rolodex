@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { PageContainer } from '@/components/ui';
 import { ContactForm } from '@/components/contacts/ContactForm';
 import { createClient } from '@/lib/supabase/server';
+import { cn } from '@/lib/utils/cn';
 
 interface EditContactPageProps {
   params: Promise<{ id: string }>;
@@ -20,9 +20,7 @@ export async function generateMetadata({ params }: EditContactPageProps) {
     .single();
 
   if (!contact) {
-    return {
-      title: 'Contact Not Found | RoloDex',
-    };
+    return { title: 'Contact Not Found | ROLO' };
   }
 
   const fullName = contact.last_name
@@ -30,7 +28,7 @@ export async function generateMetadata({ params }: EditContactPageProps) {
     : contact.first_name;
 
   return {
-    title: `Edit ${fullName} | RoloDex`,
+    title: `Edit ${fullName} | ROLO`,
     description: `Edit contact details for ${fullName}`,
   };
 }
@@ -56,28 +54,38 @@ export default async function EditContactPage({
     : contact.first_name;
 
   return (
-    <PageContainer>
+    <div className="p-4 md:p-6">
       {/* Back link */}
       <Link
         href={`/contacts/${contact.id}`}
-        className="inline-flex items-center gap-2 type-small text-text-secondary hover:text-text-primary transition-colors duration-fast mb-6"
+        className="inline-flex items-center gap-2 text-[13px] text-[rgba(255,255,255,0.7)] hover:text-[rgba(255,255,255,0.95)] transition-colors duration-150 mb-6"
       >
         <ArrowLeft size={16} strokeWidth={2} />
         Back to {fullName}
       </Link>
 
       {/* Page header */}
-      <div className="mb-8">
-        <h1 className="type-h1 text-text-primary">Edit Contact</h1>
-        <p className="type-body text-text-secondary mt-1">
+      <div className="mb-6">
+        <h1 className="text-[22px] font-semibold text-[rgba(255,255,255,0.95)]">
+          Edit Contact
+        </h1>
+        <p className="text-[14px] text-[rgba(255,255,255,0.6)] mt-1">
           Update information for {fullName}
         </p>
       </div>
 
-      {/* Contact form */}
-      <div className="bg-bg-secondary border border-border-subtle rounded-lg p-6">
+      {/* Contact form in glass card */}
+      <div
+        className={cn(
+          'rounded-[16px] overflow-hidden p-5 md:p-6',
+          'bg-[rgba(255,255,255,0.08)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.12)]',
+          'shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
+        )}
+      >
         <ContactForm contact={contact} />
       </div>
-    </PageContainer>
+    </div>
   );
 }

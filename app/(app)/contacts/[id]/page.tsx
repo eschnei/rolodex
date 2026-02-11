@@ -1,13 +1,9 @@
 import { notFound } from 'next/navigation';
-import { PageContainer } from '@/components/ui';
 import { ContactHeader } from '@/components/contacts/ContactHeader';
-import { ContactDetailCard } from '@/components/contacts/ContactDetailCard';
-import { ReachedOutButton } from '@/components/contacts/ReachedOutButton';
+import { ContactFullCard } from '@/components/contacts/ContactFullCard';
 import { DeleteContactButton } from '@/components/contacts/DeleteContactButton';
-import { NotesAndActionsSection } from '@/components/contacts/NotesAndActionsSection';
 import { createClient } from '@/lib/supabase/server';
 import type { Note, ActionItem } from '@/lib/database.types';
-import { cn } from '@/lib/utils/cn';
 
 interface ContactDetailPageProps {
   params: Promise<{ id: string }>;
@@ -24,9 +20,7 @@ export async function generateMetadata({ params }: ContactDetailPageProps) {
     .single();
 
   if (!contact) {
-    return {
-      title: 'Contact Not Found | RoloDex',
-    };
+    return { title: 'Contact Not Found | ROLO' };
   }
 
   const fullName = contact.last_name
@@ -34,7 +28,7 @@ export async function generateMetadata({ params }: ContactDetailPageProps) {
     : contact.first_name;
 
   return {
-    title: `${fullName} | RoloDex`,
+    title: `${fullName} | ROLO`,
     description: `Contact details for ${fullName}`,
   };
 }
@@ -45,7 +39,6 @@ export default async function ContactDetailPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  // Fetch contact, notes, and action items in parallel
   const [contactResult, notesResult, actionItemsResult] = await Promise.all([
     supabase.from('contacts').select('*').eq('id', id).single(),
     supabase
@@ -73,24 +66,19 @@ export default async function ContactDetailPage({
     : contact.first_name;
 
   return (
-    <PageContainer>
-      {/* Header with back nav, avatar, name, status */}
+    <div className="p-4 md:p-6">
       <ContactHeader contact={contact} />
 
-      {/* Unified contact detail card */}
       <div className="mt-6">
-        <ContactDetailCard contact={contact} />
+        <ContactFullCard
+          contact={contact}
+          initialNotes={notes}
+          initialActionItems={actionItems}
+        />
       </div>
 
-      {/* Notes & Transcripts section */}
-      <NotesAndActionsSection
-        contact={contact}
-        initialNotes={notes}
-        initialActionItems={actionItems}
-      />
-
       {/* Danger Zone */}
-      <div className="mt-8 pt-8 border-t border-[rgba(255,255,255,0.12)]">
+      <div className="mt-8 pt-6 border-t border-[rgba(255,255,255,0.12)]">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h3 className="text-[14px] font-medium text-[rgba(255,255,255,0.95)]">
@@ -103,19 +91,6 @@ export default async function ContactDetailPage({
           <DeleteContactButton contactId={contact.id} contactName={fullName} />
         </div>
       </div>
-
-      {/* Sticky Footer - I Just Reached Out only (no Schedule Call) */}
-      <div
-        className={cn(
-          'sticky bottom-0 -mx-5 px-5 py-4 mt-8',
-          'bg-[rgba(255,255,255,0.08)]',
-          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
-          'border-t border-[rgba(255,255,255,0.12)]',
-          'flex justify-center'
-        )}
-      >
-        <ReachedOutButton contactId={contact.id} />
-      </div>
-    </PageContainer>
+    </div>
   );
 }

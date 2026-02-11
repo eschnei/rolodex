@@ -1,12 +1,11 @@
-import { PageContainer, PageHeader } from '@/components/ui';
 import { createClient } from '@/lib/supabase/server';
+import { cn } from '@/lib/utils/cn';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SettingsPage() {
   const supabase = await createClient();
 
-  // Get current user
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -15,7 +14,6 @@ export default async function SettingsPage() {
     return null;
   }
 
-  // Fetch user profile
   const { data: profile } = await supabase
     .from('users')
     .select('*')
@@ -23,41 +21,44 @@ export default async function SettingsPage() {
     .single();
 
   return (
-    <PageContainer>
-      <PageHeader title="Settings" />
-
-      <div className="space-y-6">
-        {/* Account Info */}
-        <section>
-          <h2 className="type-h3 text-text-primary mb-3">Account</h2>
-          <div className="p-5 bg-bg-secondary border border-border-subtle rounded-lg">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between py-2">
-                <span className="type-body text-text-secondary">Email</span>
-                <span className="type-body text-text-primary">
-                  {profile?.email}
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span className="type-body text-text-secondary">Name</span>
-                <span className="type-body text-text-primary">
-                  {profile?.name || 'Not set'}
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span className="type-body text-text-secondary">
-                  Member since
-                </span>
-                <span className="type-body text-text-primary">
-                  {profile?.created_at
-                    ? new Date(profile.created_at).toLocaleDateString()
-                    : 'Unknown'}
-                </span>
-              </div>
+    <div className="p-4 md:p-6">
+      <div
+        className={cn(
+          'rounded-[16px] overflow-hidden',
+          'bg-[rgba(255,255,255,0.08)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.12)]',
+          'shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]'
+        )}
+      >
+        <div className="p-5 md:p-6">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.5)] mb-4">
+            Account
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b border-[rgba(255,255,255,0.08)]">
+              <span className="text-[13px] text-[rgba(255,255,255,0.6)]">Email</span>
+              <span className="text-[13px] text-[rgba(255,255,255,0.95)]">
+                {profile?.email}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-[rgba(255,255,255,0.08)]">
+              <span className="text-[13px] text-[rgba(255,255,255,0.6)]">Name</span>
+              <span className="text-[13px] text-[rgba(255,255,255,0.95)]">
+                {profile?.name || 'Not set'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-[13px] text-[rgba(255,255,255,0.6)]">Member since</span>
+              <span className="text-[13px] text-[rgba(255,255,255,0.95)]">
+                {profile?.created_at
+                  ? new Date(profile.created_at).toLocaleDateString()
+                  : 'Unknown'}
+              </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
-    </PageContainer>
+    </div>
   );
 }
