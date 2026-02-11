@@ -20,7 +20,7 @@ function StatCard({ label, value, icon }: StatCardProps) {
     <div
       className={cn(
         'flex flex-col items-center justify-center',
-        'p-4 rounded-[16px] border',
+        'py-6 px-4 rounded-[16px] border',
         'bg-[rgba(255,255,255,0.08)]',
         'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
         'border-[rgba(255,255,255,0.12)]',
@@ -30,7 +30,7 @@ function StatCard({ label, value, icon }: StatCardProps) {
     >
       <div className="flex items-center gap-2 mb-1 text-[rgba(255,255,255,0.95)]">
         {icon}
-        <span className="text-[22px] font-semibold">{value}</span>
+        <span className="text-[28px] font-semibold">{value}</span>
       </div>
       <span className="text-[12px] font-medium text-center text-[rgba(255,255,255,0.7)]">{label}</span>
     </div>

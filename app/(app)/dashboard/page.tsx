@@ -1,4 +1,3 @@
-import { PageContainer } from '@/components/ui';
 import {
   DashboardStats,
   DashboardContactsList,
@@ -13,23 +12,21 @@ export default async function DashboardPage() {
 
   if (error) {
     return (
-      <PageContainer>
-        <DashboardTitle />
+      <div className="p-4 md:p-6">
         <div className="p-5 bg-[rgba(229,72,77,0.15)] border border-[rgba(229,72,77,0.3)] rounded-[16px]">
           <p className="text-[14px] text-status-overdue">
             Failed to load dashboard data. Please try refreshing the page.
           </p>
         </div>
-      </PageContainer>
+      </div>
     );
   }
 
   if (!data) {
     return (
-      <PageContainer>
-        <DashboardTitle />
+      <div className="p-4 md:p-6">
         <EmptyDashboard hasContacts={false} />
-      </PageContainer>
+      </div>
     );
   }
 
@@ -45,27 +42,15 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <PageContainer>
-      <DashboardTitle />
-
+    <div className="p-4 md:p-6">
       {/* Stats grid */}
-      {hasAnyContacts && <DashboardStats stats={stats} className="mb-6" />}
+      {hasAnyContacts && <DashboardStats stats={stats} className="mb-4" />}
 
       {/* Empty state when no contacts */}
       {!hasAnyContacts && <EmptyDashboard hasContacts={false} />}
 
       {/* Contacts list with action items prioritized */}
       {hasAnyContacts && <DashboardContactsList contacts={allContacts} />}
-    </PageContainer>
-  );
-}
-
-function DashboardTitle() {
-  return (
-    <div className="mb-8">
-      <h1 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.95)]">
-        DASHBOARD
-      </h1>
     </div>
   );
 }
