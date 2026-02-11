@@ -1,8 +1,7 @@
-import { AlertCircle, Clock, CheckCircle } from 'lucide-react';
-import { PageContainer, PageHeader } from '@/components/ui';
+import { PageContainer } from '@/components/ui';
 import {
   DashboardStats,
-  DashboardSection,
+  DashboardContactsList,
   EmptyDashboard,
 } from '@/components/dashboard';
 import { getDashboardData } from '@/lib/actions/dashboard';
@@ -15,9 +14,9 @@ export default async function DashboardPage() {
   if (error) {
     return (
       <PageContainer>
-        <PageHeader title="Dashboard" />
-        <div className="p-5 bg-status-overdue-bg border border-status-overdue/20 rounded-lg">
-          <p className="type-body text-status-overdue-text">
+        <DashboardTitle />
+        <div className="p-5 bg-[rgba(229,72,77,0.15)] border border-[rgba(229,72,77,0.3)] rounded-[16px]">
+          <p className="text-[14px] text-status-overdue">
             Failed to load dashboard data. Please try refreshing the page.
           </p>
         </div>
@@ -28,77 +27,45 @@ export default async function DashboardPage() {
   if (!data) {
     return (
       <PageContainer>
-        <PageHeader title="Dashboard" />
+        <DashboardTitle />
         <EmptyDashboard hasContacts={false} />
       </PageContainer>
     );
   }
 
-  const { contacts, stats, isCaughtUp } = data;
+  const { contacts, stats } = data;
   const hasAnyContacts = stats.totalContacts > 0;
-  const hasNeedsAttention =
-    contacts.overdue.length > 0 ||
-    contacts.dueToday.length > 0 ||
-    contacts.dueSoon.length > 0;
+
+  // Combine all contacts for the list
+  const allContacts = [
+    ...contacts.overdue,
+    ...contacts.dueToday,
+    ...contacts.dueSoon,
+    ...contacts.onTrack,
+  ];
 
   return (
     <PageContainer>
-      <PageHeader title="Dashboard" />
+      <DashboardTitle />
 
       {/* Stats grid */}
       {hasAnyContacts && <DashboardStats stats={stats} className="mb-6" />}
 
-      {/* Empty or caught up state */}
+      {/* Empty state when no contacts */}
       {!hasAnyContacts && <EmptyDashboard hasContacts={false} />}
 
-      {hasAnyContacts && isCaughtUp && !hasNeedsAttention && (
-        <EmptyDashboard hasContacts={true} />
-      )}
-
-      {/* Contact sections */}
-      {hasAnyContacts && hasNeedsAttention && (
-        <div className="space-y-8">
-          {/* Overdue section */}
-          <DashboardSection
-            title="Overdue"
-            subtitle="Contacts past their cadence deadline"
-            contacts={contacts.overdue}
-            variant="overdue"
-            icon={<AlertCircle size={20} strokeWidth={1.5} />}
-          />
-
-          {/* Due Today section */}
-          <DashboardSection
-            title="Due Today"
-            subtitle="Reach out to these contacts today"
-            contacts={contacts.dueToday}
-            variant="overdue"
-            icon={<AlertCircle size={20} strokeWidth={1.5} />}
-          />
-
-          {/* Due Soon section */}
-          <DashboardSection
-            title="Due Soon"
-            subtitle="Coming up in the next 3 days"
-            contacts={contacts.dueSoon}
-            variant="due"
-            icon={<Clock size={20} strokeWidth={1.5} />}
-          />
-
-          {/* On Track section - collapsed by default, shown if no overdue/due soon */}
-          {contacts.overdue.length === 0 &&
-            contacts.dueToday.length === 0 &&
-            contacts.dueSoon.length === 0 && (
-              <DashboardSection
-                title="On Track"
-                subtitle="All your contacts are doing well"
-                contacts={contacts.onTrack}
-                variant="ontrack"
-                icon={<CheckCircle size={20} strokeWidth={1.5} />}
-              />
-            )}
-        </div>
-      )}
+      {/* Contacts list with action items prioritized */}
+      {hasAnyContacts && <DashboardContactsList contacts={allContacts} />}
     </PageContainer>
+  );
+}
+
+function DashboardTitle() {
+  return (
+    <div className="mb-8">
+      <h1 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.95)]">
+        DASHBOARD
+      </h1>
+    </div>
   );
 }

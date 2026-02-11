@@ -24,21 +24,22 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
           'flex flex-col items-center justify-center',
           'p-8 text-center',
           'rounded-[16px]',
-          'bg-[rgba(255,255,255,0.6)]',
-          'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
-          'border border-[rgba(255,255,255,0.25)]',
+          'bg-[rgba(255,255,255,0.08)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.12)]',
+          'shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]',
           className
         )}
       >
-        <div className="w-16 h-16 rounded-full bg-accent-subtle flex items-center justify-center mb-4">
-          <Users size={32} className="text-accent-text" strokeWidth={1.5} />
+        <div className="w-16 h-16 rounded-full bg-[rgba(255,255,255,0.1)] flex items-center justify-center mb-4">
+          <Users size={32} className="text-[rgba(255,255,255,0.8)]" strokeWidth={1.5} />
         </div>
 
-        <h2 className="text-[22px] font-semibold text-[rgba(26,26,28,0.95)] mb-2">
+        <h2 className="text-[22px] font-semibold text-[rgba(255,255,255,0.95)] mb-2">
           Your network starts here.
         </h2>
 
-        <p className="text-[14px] text-[rgba(26,26,28,0.65)] mb-6 max-w-sm">
+        <p className="text-[14px] text-[rgba(255,255,255,0.7)] mb-6 max-w-sm">
           Add your first contact to start building and maintaining meaningful relationships.
         </p>
 
@@ -67,9 +68,10 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
         'flex flex-col items-center justify-center',
         'p-8 text-center',
         'rounded-[16px]',
-        'bg-[rgba(48,164,108,0.08)]',
-        'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
-        'border border-[rgba(48,164,108,0.2)]',
+        'bg-[rgba(255,255,255,0.08)]',
+        'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+        'border border-[rgba(255,255,255,0.12)]',
+        'shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]',
         className
       )}
     >
@@ -81,11 +83,11 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
         />
       </div>
 
-      <h2 className="text-[22px] font-semibold text-status-ontrack-text mb-2">
+      <h2 className="text-[22px] font-semibold text-[rgba(255,255,255,0.95)] mb-2">
         You are all caught up!
       </h2>
 
-      <p className="text-[14px] text-status-ontrack-text/80 max-w-sm">
+      <p className="text-[14px] text-[rgba(255,255,255,0.7)] max-w-sm">
         Great job staying on top of your network. All your contacts are on
         track. Keep up the good work!
       </p>
