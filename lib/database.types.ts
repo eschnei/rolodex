@@ -81,6 +81,7 @@ export interface Database {
           cadence_days: number | null;
           last_contacted_at: string | null;
           ai_summary: string | null;
+          tags: string[];
           created_at: string;
           updated_at: string;
         };
@@ -102,6 +103,7 @@ export interface Database {
           cadence_days?: number | null;
           last_contacted_at?: string | null;
           ai_summary?: string | null;
+          tags?: string[];
           created_at?: string;
           updated_at?: string;
         };
@@ -123,6 +125,7 @@ export interface Database {
           cadence_days?: number | null;
           last_contacted_at?: string | null;
           ai_summary?: string | null;
+          tags?: string[];
           created_at?: string;
           updated_at?: string;
         };

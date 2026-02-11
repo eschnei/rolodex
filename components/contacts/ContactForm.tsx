@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { X } from 'lucide-react';
 import { Input, Textarea, Button } from '@/components/ui';
 import { createContact, updateContact } from '@/lib/actions/contacts';
 import { type Contact } from '@/lib/database.types';
@@ -52,8 +53,29 @@ export function ContactForm({ contact, onSuccess }: ContactFormProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [tags, setTags] = useState<string[]>(contact?.tags || []);
+  const [tagInput, setTagInput] = useState('');
 
   const isEditMode = !!contact;
+
+  const handleAddTag = () => {
+    const newTag = tagInput.trim();
+    if (newTag && tags.length < 3 && !tags.includes(newTag)) {
+      setTags([...tags, newTag]);
+      setTagInput('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter((t) => t !== tagToRemove));
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddTag();
+    }
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -218,6 +240,81 @@ export function ContactForm({ contact, onSuccess }: ContactFormProps) {
           helperText="Private notes about this contact that help you stay connected"
           rows={4}
         />
+
+        {/* Tags */}
+        <div className="flex flex-col gap-2">
+          <label className="text-[12px] font-medium text-[rgba(255,255,255,0.6)]">
+            Tags <span className="text-[rgba(255,255,255,0.4)]">(max 3)</span>
+          </label>
+
+          {/* Current tags */}
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className={cn(
+                    'inline-flex items-center gap-1 px-2.5 py-1',
+                    'bg-[rgba(91,91,214,0.2)] text-accent',
+                    'rounded-full text-[12px] font-medium'
+                  )}
+                >
+                  {tag}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTag(tag)}
+                    className="hover:text-white transition-colors"
+                  >
+                    <X size={12} />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Add tag input */}
+          {tags.length < 3 && (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={handleTagKeyDown}
+                placeholder="Add a tag..."
+                className={cn(
+                  'flex-1 px-3 py-2',
+                  'text-[14px]',
+                  'bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.95)]',
+                  'border border-[rgba(255,255,255,0.12)] rounded-[12px]',
+                  'focus:outline-none focus:border-accent focus:ring-[3px] focus:ring-[rgba(91,91,214,0.2)]',
+                  'placeholder:text-[rgba(255,255,255,0.4)]',
+                  'transition-[border-color,box-shadow] duration-150'
+                )}
+              />
+              <button
+                type="button"
+                onClick={handleAddTag}
+                disabled={!tagInput.trim()}
+                className={cn(
+                  'px-4 py-2',
+                  'bg-[rgba(255,255,255,0.1)] text-[rgba(255,255,255,0.9)]',
+                  'rounded-[12px] text-[13px] font-medium',
+                  'hover:bg-[rgba(255,255,255,0.15)]',
+                  'disabled:opacity-50 disabled:cursor-not-allowed',
+                  'transition-all duration-150'
+                )}
+              >
+                Add
+              </button>
+            </div>
+          )}
+
+          {/* Hidden input to submit tags as JSON */}
+          <input type="hidden" name="tags" value={JSON.stringify(tags)} />
+          <span className="text-[12px] text-[rgba(255,255,255,0.5)]">
+            Custom labels to organize your contacts
+          </span>
+        </div>
       </section>
 
       {/* Communication Preferences Section */}

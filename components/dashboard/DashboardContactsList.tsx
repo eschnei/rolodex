@@ -134,9 +134,27 @@ function ContactRow({ contact }: { contact: DashboardContact }) {
       )}
     >
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-medium text-[rgba(255,255,255,0.95)] truncate">
-          {fullName}
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="text-[14px] font-medium text-[rgba(255,255,255,0.95)] truncate">
+            {fullName}
+          </p>
+          {contact.tags && contact.tags.length > 0 && (
+            <div className="flex gap-1 flex-shrink-0">
+              {contact.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className={cn(
+                    'px-1.5 py-0.5',
+                    'bg-[rgba(91,91,214,0.2)] text-accent',
+                    'rounded text-[10px] font-medium'
+                  )}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
         {(contact.company || contact.role) && (
           <p className="text-[12px] text-[rgba(255,255,255,0.5)] truncate">
             {contact.role && contact.company

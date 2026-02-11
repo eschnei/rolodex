@@ -36,6 +36,19 @@ export async function createContact(
     };
   }
 
+  // Parse tags
+  let tags: string[] = [];
+  try {
+    const tagsJson = formData.get('tags') as string;
+    if (tagsJson) {
+      tags = JSON.parse(tagsJson);
+      // Ensure max 3 tags
+      tags = tags.slice(0, 3);
+    }
+  } catch {
+    tags = [];
+  }
+
   // Parse form data
   const rawData = {
     first_name: formData.get('first_name'),
@@ -70,6 +83,7 @@ export async function createContact(
     .insert({
       user_id: user.id,
       ...validation.data,
+      tags,
     })
     .select('id')
     .single();
@@ -112,6 +126,19 @@ export async function updateContact(
     };
   }
 
+  // Parse tags
+  let tags: string[] = [];
+  try {
+    const tagsJson = formData.get('tags') as string;
+    if (tagsJson) {
+      tags = JSON.parse(tagsJson);
+      // Ensure max 3 tags
+      tags = tags.slice(0, 3);
+    }
+  } catch {
+    tags = [];
+  }
+
   // Parse form data
   const rawData = {
     first_name: formData.get('first_name'),
@@ -145,6 +172,7 @@ export async function updateContact(
     .from('contacts')
     .update({
       ...validation.data,
+      tags,
       updated_at: new Date().toISOString(),
     })
     .eq('id', contactId)
