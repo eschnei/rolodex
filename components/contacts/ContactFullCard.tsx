@@ -202,7 +202,7 @@ export function ContactFullCard({
             {contact.how_we_met && (
               <>
                 <span className="text-[12px] text-[rgba(255,255,255,0.5)]">How Met</span>
-                <span className="text-[13px] text-[rgba(255,255,255,0.95)] line-clamp-1">{contact.how_we_met}</span>
+                <span className="text-[13px] text-[rgba(255,255,255,0.95)] whitespace-pre-wrap">{contact.how_we_met}</span>
               </>
             )}
             <span className="text-[12px] text-[rgba(255,255,255,0.5)]">Cadence</span>
