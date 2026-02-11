@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { AlertCircle, Clock, CheckCircle, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { DashboardContact } from '@/lib/actions/dashboard';
+import { getTagStyles } from '@/lib/utils/tagColors';
 
 interface DashboardContactsListProps {
   contacts: DashboardContact[];
@@ -13,6 +14,12 @@ interface DashboardContactsListProps {
 /**
  * Dashboard contacts list with dark glass treatment
  * Shows all contacts with action items prioritized at top
+ *
+ * Enhanced layout per contact row:
+ * - Name + role/company on second line
+ * - 1-line AI summary snippet (truncated)
+ * - Status badges: "Last: Xd" and "Next: Xd"
+ * - Tags with deterministic colors
  */
 export function DashboardContactsList({
   contacts,
@@ -93,87 +100,142 @@ function ContactRow({ contact }: { contact: DashboardContact }) {
     ? `${contact.first_name} ${contact.last_name}`
     : contact.first_name;
 
-  const statusConfig = {
+  // Calculate last contacted display
+  const lastLabel =
+    cadenceInfo.daysSinceContact !== null
+      ? cadenceInfo.daysSinceContact === 0
+        ? 'Today'
+        : `${cadenceInfo.daysSinceContact}d`
+      : 'Never';
+
+  // Calculate next due display
+  const nextLabel =
+    cadenceInfo.status === 'overdue'
+      ? `-${cadenceInfo.daysOverdue}d`
+      : cadenceInfo.daysUntilDue === 0
+        ? 'Today'
+        : `${cadenceInfo.daysUntilDue}d`;
+
+  // Determine badge colors based on status
+  const statusColors = {
     overdue: {
-      icon: AlertCircle,
-      color: 'text-status-overdue',
-      bg: 'bg-[rgba(229,72,77,0.15)]',
-      label: `${cadenceInfo.daysOverdue}d overdue`,
+      bg: 'bg-[rgba(229,72,77,0.2)]',
+      border: 'border-[rgba(229,72,77,0.4)]',
+      text: 'text-[rgba(255,255,255,0.95)]',
     },
     due_today: {
-      icon: AlertCircle,
-      color: 'text-status-overdue',
-      bg: 'bg-[rgba(229,72,77,0.15)]',
-      label: 'Due today',
+      bg: 'bg-[rgba(229,72,77,0.2)]',
+      border: 'border-[rgba(229,72,77,0.4)]',
+      text: 'text-[rgba(255,255,255,0.95)]',
     },
     due_soon: {
-      icon: Clock,
-      color: 'text-status-due',
-      bg: 'bg-[rgba(240,158,0,0.15)]',
-      label: `${cadenceInfo.daysUntilDue}d left`,
+      bg: 'bg-[rgba(240,158,0,0.2)]',
+      border: 'border-[rgba(240,158,0,0.4)]',
+      text: 'text-[rgba(255,255,255,0.95)]',
     },
     on_track: {
-      icon: CheckCircle,
-      color: 'text-status-ontrack',
-      bg: 'bg-[rgba(48,164,108,0.15)]',
-      label: 'On track',
+      bg: 'bg-[rgba(48,164,108,0.2)]',
+      border: 'border-[rgba(48,164,108,0.4)]',
+      text: 'text-[rgba(255,255,255,0.95)]',
     },
   };
 
-  const config = statusConfig[cadenceInfo.status];
-  const StatusIcon = config.icon;
+  const colors = statusColors[cadenceInfo.status];
+
+  // Get summary snippet (truncated to ~80 chars for single line)
+  const summarySnippet = contact.ai_summary
+    ? contact.ai_summary.slice(0, 80) +
+      (contact.ai_summary.length > 80 ? '...' : '')
+    : null;
+
+  // Role/company subtitle
+  const subtitle =
+    contact.role && contact.company
+      ? `${contact.role} at ${contact.company}`
+      : contact.role || contact.company || null;
 
   return (
     <Link
       href={`/contacts/${contact.id}`}
       className={cn(
-        'flex items-center justify-between gap-3',
-        'px-4 py-3',
+        'block px-4 py-3',
         'hover:bg-[rgba(255,255,255,0.04)]',
         'transition-colors duration-150'
       )}
     >
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <p className="text-[14px] font-medium text-[rgba(255,255,255,0.95)] truncate">
-            {fullName}
-          </p>
-          {contact.tags && contact.tags.length > 0 && (
-            <div className="flex gap-1 flex-shrink-0">
-              {contact.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className={cn(
-                    'px-1.5 py-0.5',
-                    'bg-[rgba(91,91,214,0.2)] text-accent',
-                    'rounded text-[10px] font-medium'
-                  )}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+      {/* Top row: Name + Tags + Status badges */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          {/* Name row with tags */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <p className="text-[14px] font-medium text-[rgba(255,255,255,0.95)] truncate">
+              {fullName}
+            </p>
+            {contact.tags && contact.tags.length > 0 && (
+              <div className="flex gap-1 flex-shrink-0">
+                {contact.tags.slice(0, 2).map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-1.5 py-0.5 rounded text-[10px] font-medium border"
+                    style={getTagStyles(tag)}
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {contact.tags.length > 2 && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-medium text-[rgba(255,255,255,0.5)]">
+                    +{contact.tags.length - 2}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Role/Company subtitle */}
+          {subtitle && (
+            <p className="text-[12px] text-[rgba(255,255,255,0.5)] truncate mt-0.5">
+              {subtitle}
+            </p>
+          )}
+
+          {/* AI Summary snippet */}
+          {summarySnippet && (
+            <p className="text-[12px] italic text-[rgba(255,255,255,0.4)] truncate mt-1">
+              {summarySnippet}
+            </p>
           )}
         </div>
-        {(contact.company || contact.role) && (
-          <p className="text-[12px] text-[rgba(255,255,255,0.5)] truncate">
-            {contact.role && contact.company
-              ? `${contact.role} at ${contact.company}`
-              : contact.company || contact.role}
-          </p>
-        )}
-      </div>
 
-      <div
-        className={cn(
-          'flex items-center gap-1.5 px-2 py-1 rounded-full',
-          config.bg
-        )}
-      >
-        <StatusIcon size={12} className={config.color} strokeWidth={2} />
-        <span className={cn('text-[11px] font-medium', config.color)}>
-          {config.label}
-        </span>
+        {/* Status badges: Last and Next */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Last contacted badge */}
+          <span
+            className={cn(
+              'inline-flex items-center px-2 py-0.5',
+              'text-[10px] font-medium',
+              'rounded-full border',
+              'bg-[rgba(255,255,255,0.08)]',
+              'border-[rgba(255,255,255,0.2)]',
+              'text-[rgba(255,255,255,0.7)]'
+            )}
+          >
+            Last: {lastLabel}
+          </span>
+
+          {/* Next due badge */}
+          <span
+            className={cn(
+              'inline-flex items-center px-2 py-0.5',
+              'text-[10px] font-medium',
+              'rounded-full border',
+              colors.bg,
+              colors.border,
+              colors.text
+            )}
+          >
+            Next: {nextLabel}
+          </span>
+        </div>
       </div>
     </Link>
   );

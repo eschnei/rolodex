@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { ContactListItem } from './ContactListItem';
+import { ContactCard } from './ContactCard';
 import { EmptyContactsState } from './EmptyContactsState';
 import { SearchInput } from '@/components/ui/SearchInput';
 import { useDebounce } from '@/lib/hooks/useDebounce';
@@ -13,7 +13,13 @@ interface ContactListProps {
 }
 
 /**
- * Contact list with glass-styled search and summary-first items
+ * Contact grid with glass-styled cards
+ *
+ * Features:
+ * - Responsive card grid layout
+ * - Glass morphism card styling
+ * - Search with debounce
+ * - Tags with deterministic colors
  */
 export function ContactList({ contacts }: ContactListProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,16 +34,19 @@ export function ContactList({ contacts }: ContactListProps) {
     const query = debouncedQuery.toLowerCase().trim();
 
     return contacts.filter((contact) => {
-      const fullName = `${contact.first_name} ${contact.last_name || ''}`.toLowerCase();
+      const fullName =
+        `${contact.first_name} ${contact.last_name || ''}`.toLowerCase();
       const company = (contact.company || '').toLowerCase();
       const role = (contact.role || '').toLowerCase();
       const email = (contact.email || '').toLowerCase();
+      const tags = (contact.tags || []).join(' ').toLowerCase();
 
       return (
         fullName.includes(query) ||
         company.includes(query) ||
         role.includes(query) ||
-        email.includes(query)
+        email.includes(query) ||
+        tags.includes(query)
       );
     });
   }, [contacts, debouncedQuery]);
@@ -69,11 +78,19 @@ export function ContactList({ contacts }: ContactListProps) {
           : `${filteredContacts.length} of ${contacts.length} contacts`}
       </p>
 
-      {/* Contact list or empty search results */}
+      {/* Contact grid or empty search results */}
       {filteredContacts.length > 0 ? (
-        <div className="space-y-2">
+        <div
+          className={cn(
+            'grid gap-4',
+            'grid-cols-1',
+            'sm:grid-cols-2',
+            'lg:grid-cols-3',
+            'xl:grid-cols-4'
+          )}
+        >
           {filteredContacts.map((contact) => (
-            <ContactListItem key={contact.id} contact={contact} />
+            <ContactCard key={contact.id} contact={contact} />
           ))}
         </div>
       ) : (

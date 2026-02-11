@@ -13,13 +13,14 @@ export interface SearchInputProps
 }
 
 /**
- * Search input with glass morphism treatment
+ * Search input with dark glass morphism treatment
  *
  * Features:
- * - Glass background with backdrop blur
+ * - Dark glass background with backdrop blur
  * - Search icon on left
  * - Optional clear button on right
  * - Smooth focus transitions
+ * - Light text for dark backgrounds
  */
 export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   ({ className, containerClassName, value, onClear, ...props }, ref) => {
@@ -30,7 +31,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         {/* Search icon */}
         <Search
           size={20}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-[rgba(26,26,28,0.45)] pointer-events-none"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-[rgba(255,255,255,0.5)] pointer-events-none"
           strokeWidth={2}
         />
 
@@ -42,15 +43,15 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           className={cn(
             'w-full pl-[44px] pr-10 py-3',
             'text-[14px] leading-relaxed',
-            'bg-[rgba(255,255,255,0.5)]',
-            'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
-            'text-[rgba(26,26,28,0.95)]',
-            'border border-[rgba(255,255,255,0.25)]',
+            'bg-[rgba(255,255,255,0.08)]',
+            'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+            'text-[rgba(255,255,255,0.95)]',
+            'border border-[rgba(255,255,255,0.12)]',
             'rounded-[16px]',
-            'placeholder:text-[rgba(26,26,28,0.45)]',
-            'focus:outline-none focus:bg-[rgba(255,255,255,0.7)]',
+            'placeholder:text-[rgba(255,255,255,0.4)]',
+            'focus:outline-none focus:bg-[rgba(255,255,255,0.12)]',
             'focus:border-[rgba(91,91,214,0.5)]',
-            'focus:shadow-[0_0_0_3px_rgba(91,91,214,0.15)]',
+            'focus:shadow-[0_0_0_3px_rgba(91,91,214,0.2)]',
             'transition-all duration-[120ms] ease-out',
             // Hide default search clear button
             '[&::-webkit-search-cancel-button]:hidden',
@@ -66,8 +67,8 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
             onClick={onClear}
             className={cn(
               'absolute right-3 top-1/2 -translate-y-1/2',
-              'text-[rgba(26,26,28,0.45)]',
-              'hover:text-[rgba(26,26,28,0.65)]',
+              'text-[rgba(255,255,255,0.5)]',
+              'hover:text-[rgba(255,255,255,0.8)]',
               'transition-colors duration-150'
             )}
             aria-label="Clear search"

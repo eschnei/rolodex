@@ -4,18 +4,20 @@ interface AvatarProps {
   firstName: string;
   lastName?: string | null;
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'light' | 'dark';
   className?: string;
 }
 
 /**
  * Avatar component showing user initials
  * Size: sm (28px), md (36px - default), lg (48px)
- * Design: rounded-full, bg-accent-subtle, text-accent-text
+ * Variant: light (for light backgrounds), dark (for dark/glass backgrounds)
  */
 export function Avatar({
   firstName,
   lastName,
   size = 'md',
+  variant = 'dark',
   className,
 }: AvatarProps) {
   // Get initials from first and last name
@@ -27,14 +29,20 @@ export function Avatar({
     lg: 'w-12 h-12 text-[16px]',
   };
 
+  const variants = {
+    light: 'bg-accent-subtle text-accent-text',
+    dark: 'bg-[rgba(91,91,214,0.3)] text-[rgba(255,255,255,0.95)] border border-[rgba(91,91,214,0.4)]',
+  };
+
   return (
     <div
       className={cn(
-        'rounded-full bg-accent-subtle text-accent-text',
+        'rounded-full',
         'flex items-center justify-center',
         'font-medium uppercase select-none',
         'shrink-0',
         sizes[size],
+        variants[variant],
         className
       )}
       aria-hidden="true"

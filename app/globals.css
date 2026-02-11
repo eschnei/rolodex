@@ -266,22 +266,19 @@ body {
    ======================================== */
 
 /**
- * Premium dusk gradient background
- * Smooth transition from deep navy to purple-magenta
+ * Premium deep blue to dark purple gradient
+ * Angled gradient (bottom-right direction) for modern feel
  * Use on auth pages and app background
  */
 .bg-brand-gradient {
   background: linear-gradient(
-    180deg,
-    #1a1b3a 0%,
-    #252552 15%,
-    #2d2460 30%,
-    #3a2468 45%,
-    #4a2570 55%,
-    #5c2668 65%,
-    #6e2860 75%,
-    #7a2a58 85%,
-    #862c50 100%
+    135deg,
+    #0f172a 0%,
+    #131c3a 15%,
+    #1a1f4a 30%,
+    #1e1b4b 50%,
+    #271854 70%,
+    #2e1065 100%
   );
   background-attachment: fixed;
 }
@@ -298,6 +295,11 @@ body {
 
 .text-on-gradient-muted {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* Text shadow utility for logo/branding */
+.text-shadow-lg {
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
