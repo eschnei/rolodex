@@ -4,8 +4,7 @@ import { ContactHeader } from '@/components/contacts/ContactHeader';
 import { ContactInfo } from '@/components/contacts/ContactInfo';
 import { ReachedOutButton } from '@/components/contacts/ReachedOutButton';
 import { DeleteContactButton } from '@/components/contacts/DeleteContactButton';
-import { NotesSection } from '@/components/notes';
-import { ActionItemsSection } from '@/components/actionItems';
+import { NotesAndActionsSection } from '@/components/contacts/NotesAndActionsSection';
 import { createClient } from '@/lib/supabase/server';
 import type { Note, ActionItem } from '@/lib/database.types';
 
@@ -96,17 +95,12 @@ export default async function ContactDetailPage({
       {/* Contact Information */}
       <ContactInfo contact={contact} />
 
-      {/* Notes and Action Items Grid */}
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Notes Section */}
-        <NotesSection contactId={contact.id} initialNotes={notes} />
-
-        {/* Action Items Section */}
-        <ActionItemsSection
-          contactId={contact.id}
-          initialActionItems={actionItems}
-        />
-      </div>
+      {/* Notes and Action Items Grid with integrated Summary */}
+      <NotesAndActionsSection
+        contact={contact}
+        initialNotes={notes}
+        initialActionItems={actionItems}
+      />
 
       {/* Danger Zone */}
       <div className="mt-8 pt-8 border-t border-border-subtle">

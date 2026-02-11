@@ -13,3 +13,4 @@ export { Badge, type BadgeVariant } from './Badge';
 export { SearchInput, type SearchInputProps } from './SearchInput';
 export { RelativeTime, getRelativeTime, getFullDate } from './RelativeTime';
 export { ConfirmModal } from './ConfirmModal';
+export { ProcessingIndicator, InlineProcessingIndicator } from './ProcessingIndicator';
