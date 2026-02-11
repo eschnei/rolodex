@@ -22,6 +22,10 @@ export interface Database {
           digest_enabled: boolean;
           skip_when_caught_up: boolean;
           timezone: string;
+          gmail_refresh_token: string | null;
+          gmail_access_token: string | null;
+          gmail_token_expiry: string | null;
+          last_digest_sent_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -34,6 +38,10 @@ export interface Database {
           digest_enabled?: boolean;
           skip_when_caught_up?: boolean;
           timezone?: string;
+          gmail_refresh_token?: string | null;
+          gmail_access_token?: string | null;
+          gmail_token_expiry?: string | null;
+          last_digest_sent_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -46,6 +54,10 @@ export interface Database {
           digest_enabled?: boolean;
           skip_when_caught_up?: boolean;
           timezone?: string;
+          gmail_refresh_token?: string | null;
+          gmail_access_token?: string | null;
+          gmail_token_expiry?: string | null;
+          last_digest_sent_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
