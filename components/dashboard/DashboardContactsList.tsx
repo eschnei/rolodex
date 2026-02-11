@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { AlertCircle, Clock, CheckCircle } from 'lucide-react';
+import { AlertCircle, Clock, CheckCircle, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { DashboardContact } from '@/lib/actions/dashboard';
 
@@ -57,10 +57,23 @@ export function DashboardContactsList({
       )}
     >
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[rgba(255,255,255,0.08)]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(255,255,255,0.08)]">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.7)]">
           Your Contacts
         </h3>
+        <Link
+          href="/contacts/new"
+          className={cn(
+            'inline-flex items-center gap-1.5 px-3 py-1.5',
+            'bg-accent text-text-inverse',
+            'rounded-[10px] text-[12px] font-medium',
+            'hover:bg-accent-hover',
+            'transition-all duration-150'
+          )}
+        >
+          <Plus size={14} strokeWidth={2} />
+          Add Contact
+        </Link>
       </div>
 
       {/* Contact list */}
