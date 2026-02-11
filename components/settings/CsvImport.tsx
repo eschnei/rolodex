@@ -104,10 +104,15 @@ export function CsvImport() {
 
     if (errors.length > 0) {
       setValidationErrors(errors);
+      setMappedContacts(contacts);
       setStep('validation-error');
       return;
     }
 
+    await proceedWithContacts(contacts);
+  };
+
+  const proceedWithContacts = async (contacts: MappedContact[]) => {
     setMappedContacts(contacts);
     setError(null);
 
@@ -148,6 +153,19 @@ export function CsvImport() {
     setDbMatchActions(matchActions);
 
     setStep('preview');
+  };
+
+  const handleContinueWithoutErrors = async () => {
+    // Filter out rows with validation errors
+    const errorRowIndices = new Set(validationErrors.map((e) => e.row - 2)); // Convert back to 0-indexed
+    const validContacts = mappedContacts.filter((c) => !errorRowIndices.has(c.rowIndex));
+
+    if (validContacts.length === 0) {
+      setError('No valid contacts to import');
+      return;
+    }
+
+    await proceedWithContacts(validContacts);
   };
 
   const handleImport = async () => {
@@ -303,7 +321,7 @@ export function CsvImport() {
       {step === 'validation-error' && (
         <div className="space-y-4">
           <p className="text-[14px] text-status-overdue">
-            Found {validationErrors.length} error{validationErrors.length !== 1 ? 's' : ''} in your CSV. Please fix and re-upload.
+            Found {validationErrors.length} error{validationErrors.length !== 1 ? 's' : ''} in your CSV.
           </p>
 
           <div className="space-y-1 max-h-[200px] overflow-y-auto">
@@ -314,18 +332,32 @@ export function CsvImport() {
             ))}
           </div>
 
-          <button
-            onClick={handleReset}
-            className={cn(
-              'inline-flex items-center gap-2 px-4 py-2',
-              'bg-[rgba(255,255,255,0.1)] text-[rgba(255,255,255,0.95)]',
-              'rounded-[12px] text-[13px] font-medium',
-              'hover:bg-[rgba(255,255,255,0.15)]',
-              'transition-all duration-150'
-            )}
-          >
-            Upload New File
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={handleReset}
+              className={cn(
+                'inline-flex items-center gap-2 px-4 py-2',
+                'bg-[rgba(255,255,255,0.1)] text-[rgba(255,255,255,0.95)]',
+                'rounded-[12px] text-[13px] font-medium',
+                'hover:bg-[rgba(255,255,255,0.15)]',
+                'transition-all duration-150'
+              )}
+            >
+              Upload New File
+            </button>
+            <button
+              onClick={handleContinueWithoutErrors}
+              className={cn(
+                'inline-flex items-center gap-2 px-4 py-2',
+                'bg-accent text-white',
+                'rounded-[12px] text-[13px] font-medium',
+                'hover:bg-accent-hover',
+                'transition-all duration-150'
+              )}
+            >
+              Skip {validationErrors.length} row{validationErrors.length !== 1 ? 's' : ''} & Continue
+            </button>
+          </div>
         </div>
       )}
 
