@@ -5,13 +5,13 @@ import { cn } from '@/lib/utils/cn';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Label text displayed above the input */
-  label?: string;
+  label?: string | undefined;
   /** Error message to display */
-  error?: string;
+  error?: string | undefined;
   /** Helper text displayed below the input */
-  helperText?: string;
+  helperText?: string | undefined;
   /** Container className for the wrapper div */
-  containerClassName?: string;
+  containerClassName?: string | undefined;
 }
 
 /**

@@ -6,13 +6,13 @@ import { cn } from '@/lib/utils/cn';
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** Label text displayed above the textarea */
-  label?: string;
+  label?: string | undefined;
   /** Error message to display */
-  error?: string;
+  error?: string | undefined;
   /** Helper text displayed below the textarea */
-  helperText?: string;
+  helperText?: string | undefined;
   /** Container className for the wrapper div */
-  containerClassName?: string;
+  containerClassName?: string | undefined;
 }
 
 /**

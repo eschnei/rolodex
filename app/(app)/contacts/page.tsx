@@ -1,22 +1,36 @@
-import { Users, Plus } from 'lucide-react';
-import { PageContainer, PageHeader, Button } from '@/components/ui';
+import { Suspense } from 'react';
+import { PageContainer, SkeletonList } from '@/components/ui';
+import { ContactsHeader } from '@/components/contacts/ContactsHeader';
+import { ContactList } from '@/components/contacts/ContactList';
+import { createClient } from '@/lib/supabase/server';
+
+export const metadata = {
+  title: 'Contacts | RoloDex',
+  description: 'Manage your personal network contacts',
+};
+
+async function ContactsContent() {
+  const supabase = await createClient();
+
+  const { data: contacts, error } = await supabase
+    .from('contacts')
+    .select('*')
+    .order('first_name', { ascending: true });
+
+  if (error) {
+    throw new Error('Failed to load contacts');
+  }
+
+  return <ContactList contacts={contacts || []} />;
+}
 
 export default function ContactsPage() {
   return (
     <PageContainer>
-      <PageHeader title="Contacts" />
-      <div className="p-8 bg-bg-secondary border border-border-subtle rounded-lg flex flex-col items-center justify-center text-center">
-        <div className="w-12 h-12 rounded-full bg-bg-inset flex items-center justify-center mb-4">
-          <Users size={24} className="text-text-tertiary" strokeWidth={1.5} />
-        </div>
-        <p className="type-body text-text-secondary mb-4">
-          No contacts yet. Add your first one to get started.
-        </p>
-        <Button variant="primary" size="md">
-          <Plus size={16} strokeWidth={2} />
-          Add Contact
-        </Button>
-      </div>
+      <ContactsHeader />
+      <Suspense fallback={<SkeletonList items={5} />}>
+        <ContactsContent />
+      </Suspense>
     </PageContainer>
   );
 }
