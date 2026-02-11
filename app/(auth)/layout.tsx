@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'RoloDex - Authentication',
-  description: 'Sign in to your RoloDex account',
+  title: 'ROLO - Authentication',
+  description: 'Sign in to your ROLO account',
 };
 
 export default function AuthLayout({
@@ -33,7 +33,7 @@ export default function AuthLayout({
               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
           </div>
-          <span className="type-h2 text-on-gradient">RoloDex</span>
+          <span className="type-h2 text-on-gradient font-bold tracking-wider">ROLO</span>
         </div>
       </div>
 

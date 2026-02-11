@@ -39,8 +39,8 @@ export function Sidebar({ email }: SidebarProps) {
     >
       {/* Brand header */}
       <div className="flex items-center h-16 px-5 border-b border-[rgba(255,255,255,0.12)]">
-        <span className="text-[18px] font-bold text-[rgba(255,255,255,0.95)] tracking-[-0.5px]">
-          RoloDex
+        <span className="text-[18px] font-bold text-[rgba(255,255,255,0.95)] tracking-wider">
+          ROLO
         </span>
       </div>
 

@@ -5,7 +5,7 @@ export default function Home() {
         {/* Header */}
         <header className="mb-12">
           <p className="type-overline mb-2">Personal Networking CRM</p>
-          <h1 className="type-h1 mb-4">RoloDex</h1>
+          <h1 className="type-h1 mb-4">ROLO</h1>
           <p className="type-body max-w-[600px] text-text-secondary">
             Manage your professional network with intention. Track
             relationships, set cadences, and never lose touch with the people

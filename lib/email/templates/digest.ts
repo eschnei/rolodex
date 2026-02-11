@@ -18,18 +18,18 @@ export function generateDigestSubject(
   const totalCount = overdueCount + dueSoonCount;
 
   if (totalCount === 0) {
-    return 'RoloDex: You are all caught up!';
+    return 'ROLO: You are all caught up!';
   }
 
   if (overdueCount > 0 && dueSoonCount > 0) {
-    return `RoloDex: ${overdueCount} overdue, ${dueSoonCount} due soon`;
+    return `ROLO: ${overdueCount} overdue, ${dueSoonCount} due soon`;
   }
 
   if (overdueCount > 0) {
-    return `RoloDex: ${overdueCount} contact${overdueCount === 1 ? '' : 's'} to reach`;
+    return `ROLO: ${overdueCount} contact${overdueCount === 1 ? '' : 's'} to reach`;
   }
 
-  return `RoloDex: ${dueSoonCount} contact${dueSoonCount === 1 ? '' : 's'} coming up`;
+  return `ROLO: ${dueSoonCount} contact${dueSoonCount === 1 ? '' : 's'} coming up`;
 }
 
 /**
@@ -97,7 +97,7 @@ export function generateDigestBody(data: DigestEmailData): string {
     return lines.join('\n');
   }
 
-  lines.push("Here's your RoloDex daily digest:");
+  lines.push("Here's your ROLO daily digest:");
   lines.push('');
 
   // Overdue section
@@ -136,7 +136,7 @@ export function generateDigestBody(data: DigestEmailData): string {
     'Tip: Mark contacts as "reached out" after you connect to update their status.'
   );
   lines.push('');
-  lines.push('- RoloDex');
+  lines.push('- ROLO');
 
   return lines.join('\n');
 }

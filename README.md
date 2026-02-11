@@ -1,4 +1,4 @@
-# RoloDex
+# ROLO
 
 A personal networking CRM for managing your key relationships. Keep track of contacts, take notes during calls, and never forget to follow up.
 
