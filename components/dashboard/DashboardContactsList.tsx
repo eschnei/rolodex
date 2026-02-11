@@ -65,14 +65,15 @@ export function DashboardContactsList({
           href="/contacts/new"
           className={cn(
             'inline-flex items-center gap-1.5 px-3 py-1.5',
-            'bg-accent text-text-inverse',
-            'rounded-[10px] text-[12px] font-medium',
-            'hover:bg-accent-hover',
+            'bg-transparent text-[rgba(255,255,255,0.9)]',
+            'border border-[rgba(255,255,255,0.3)]',
+            'rounded-[8px] text-[11px] font-semibold uppercase tracking-[0.5px]',
+            'hover:bg-[rgba(255,255,255,0.08)] hover:border-[rgba(255,255,255,0.5)]',
             'transition-all duration-150'
           )}
         >
-          <Plus size={14} strokeWidth={2} />
-          Add Contact
+          <Plus size={12} strokeWidth={2.5} />
+          Contact
         </Link>
       </div>
 
