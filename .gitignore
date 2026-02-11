@@ -42,3 +42,7 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# Internal strategy docs
+PRICING.md
+ROADMAP.md
