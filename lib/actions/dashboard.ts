@@ -86,7 +86,8 @@ export async function getDashboardData(): Promise<{
       const cadenceInfo = calculateDetailedCadenceStatus(
         contact.last_contacted_at,
         contact.cadence_days,
-        userTimezone
+        userTimezone,
+        contact.created_at
       );
       return { ...contact, cadenceInfo };
     }

@@ -29,7 +29,8 @@ export interface DetailedCadenceInfo {
  * Calculate detailed cadence status for a contact with timezone awareness
  *
  * Status logic:
- * - overdue: past cadence_days since last contact OR never contacted
+ * - For never contacted: use created_at as starting point for cadence
+ * - overdue: past cadence_days since last contact (or created_at if never contacted)
  * - due_today: due today (0 days until due)
  * - due_soon: within 3 days of cadence deadline (1-3 days)
  * - on_track: more than 3 days until cadence deadline
@@ -37,12 +38,14 @@ export interface DetailedCadenceInfo {
  * @param lastContactedAt - ISO timestamp of last contact
  * @param cadenceDays - Number of days in contact cadence (default 30)
  * @param userTimezone - User's timezone for accurate day calculations
+ * @param createdAt - ISO timestamp of when contact was created (for never contacted)
  * @returns DetailedCadenceInfo with comprehensive status details
  */
 export function calculateDetailedCadenceStatus(
   lastContactedAt: string | null,
   cadenceDays: number | null = 30,
-  userTimezone: string = 'America/New_York'
+  userTimezone: string = 'America/New_York',
+  createdAt?: string | null
 ): DetailedCadenceInfo {
   const effectiveCadence = cadenceDays ?? 30;
 
@@ -57,40 +60,44 @@ export function calculateDetailedCadenceStatus(
   }
   const todayStart = startOfDay(zonedNow);
 
-  // If never contacted, treat as immediately overdue
-  if (!lastContactedAt) {
+  // Determine the reference date: last contact, or created_at for new contacts
+  const referenceDate = lastContactedAt || createdAt;
+  const isNeverContacted = !lastContactedAt;
+
+  if (!referenceDate) {
+    // No reference date at all - shouldn't happen, but default to on_track
     return {
-      status: 'overdue',
-      daysUntilDue: -effectiveCadence,
-      daysOverdue: effectiveCadence,
+      status: 'on_track',
+      daysUntilDue: effectiveCadence,
+      daysOverdue: 0,
       daysSinceContact: null,
       isNeverContacted: true,
     };
   }
 
-  const lastContact = parseISO(lastContactedAt);
+  const refDate = parseISO(referenceDate);
 
-  if (!isValid(lastContact)) {
+  if (!isValid(refDate)) {
     return {
-      status: 'overdue',
-      daysUntilDue: -effectiveCadence,
-      daysOverdue: effectiveCadence,
+      status: 'on_track',
+      daysUntilDue: effectiveCadence,
+      daysOverdue: 0,
       daysSinceContact: null,
       isNeverContacted: true,
     };
   }
 
-  // Convert last contact to user's timezone for accurate day calculation
-  let zonedLastContact: Date;
+  // Convert reference date to user's timezone for accurate day calculation
+  let zonedRefDate: Date;
   try {
-    zonedLastContact = toZonedTime(lastContact, userTimezone);
+    zonedRefDate = toZonedTime(refDate, userTimezone);
   } catch {
-    zonedLastContact = lastContact;
+    zonedRefDate = refDate;
   }
-  const lastContactStart = startOfDay(zonedLastContact);
+  const refDateStart = startOfDay(zonedRefDate);
 
-  const daysSinceContact = differenceInDays(todayStart, lastContactStart);
-  const daysUntilDue = effectiveCadence - daysSinceContact;
+  const daysSinceRef = differenceInDays(todayStart, refDateStart);
+  const daysUntilDue = effectiveCadence - daysSinceRef;
 
   let status: DetailedCadenceStatus;
   let daysOverdue = 0;
@@ -114,8 +121,8 @@ export function calculateDetailedCadenceStatus(
     status,
     daysUntilDue,
     daysOverdue,
-    daysSinceContact,
-    isNeverContacted: false,
+    daysSinceContact: isNeverContacted ? null : daysSinceRef,
+    isNeverContacted,
   };
 }
 

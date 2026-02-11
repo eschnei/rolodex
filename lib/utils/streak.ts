@@ -21,7 +21,7 @@ export interface StreakInfo {
  * @returns StreakInfo with current streak and status
  */
 export function calculateStreak(
-  contacts: Pick<Contact, 'last_contacted_at' | 'cadence_days'>[],
+  contacts: Pick<Contact, 'last_contacted_at' | 'cadence_days' | 'created_at'>[],
   userTimezone: string = 'America/New_York'
 ): StreakInfo {
   const now = new Date();
@@ -48,7 +48,8 @@ export function calculateStreak(
     const cadenceInfo = calculateDetailedCadenceStatus(
       contact.last_contacted_at,
       contact.cadence_days,
-      userTimezone
+      userTimezone,
+      contact.created_at
     );
 
     if (cadenceInfo.status === 'overdue') {
@@ -80,7 +81,8 @@ export function calculateStreak(
     const cadenceInfo = calculateDetailedCadenceStatus(
       contact.last_contacted_at,
       contact.cadence_days,
-      userTimezone
+      userTimezone,
+      contact.created_at
     );
 
     if (
