@@ -1,15 +1,9 @@
 import { PageContainer, PageHeader } from '@/components/ui';
-import { GmailConnection, DigestSettings } from '@/components/settings';
 import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
-export default async function SettingsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const params = await searchParams;
+export default async function SettingsPage() {
   const supabase = await createClient();
 
   // Get current user
@@ -28,57 +22,11 @@ export default async function SettingsPage({
     .eq('id', user.id)
     .single();
 
-  const isGmailConnected = !!profile?.gmail_refresh_token;
-  const success = params?.success;
-  const error = params?.error;
-
   return (
     <PageContainer>
       <PageHeader title="Settings" />
 
-      {/* Success/Error messages */}
-      {success === 'gmail_connected' && (
-        <div className="mb-6 p-4 bg-status-ontrack-bg border border-status-ontrack/20 rounded-lg">
-          <p className="type-body text-status-ontrack-text">
-            Gmail connected successfully! You can now receive email digests.
-          </p>
-        </div>
-      )}
-
-      {error && (
-        <div className="mb-6 p-4 bg-status-overdue-bg border border-status-overdue/20 rounded-lg">
-          <p className="type-body text-status-overdue-text">
-            {error === 'gmail_auth_denied'
-              ? 'Gmail connection was cancelled.'
-              : error === 'gmail_no_refresh_token'
-                ? 'Could not get full access to Gmail. Please try connecting again.'
-                : 'Failed to connect Gmail. Please try again.'}
-          </p>
-        </div>
-      )}
-
       <div className="space-y-6">
-        {/* Gmail Connection */}
-        <section>
-          <h2 className="type-h3 text-text-primary mb-3">Email Integration</h2>
-          <GmailConnection
-            isConnected={isGmailConnected}
-            userEmail={profile?.email}
-          />
-        </section>
-
-        {/* Digest Settings */}
-        <section>
-          <h2 className="type-h3 text-text-primary mb-3">Notifications</h2>
-          <DigestSettings
-            digestEnabled={profile?.digest_enabled ?? true}
-            digestTime={profile?.digest_time ?? '08:00:00'}
-            skipWhenCaughtUp={profile?.skip_when_caught_up ?? false}
-            timezone={profile?.timezone ?? 'America/New_York'}
-            isGmailConnected={isGmailConnected}
-          />
-        </section>
-
         {/* Account Info */}
         <section>
           <h2 className="type-h3 text-text-primary mb-3">Account</h2>
