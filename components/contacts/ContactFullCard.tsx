@@ -160,10 +160,10 @@ export function ContactFullCard({
 
       <div className="h-px bg-[rgba(255,255,255,0.08)]" />
 
-      {/* Quick Facts + Action Items Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      {/* Quick Facts + Action Items - Stacked Layout */}
+      <div>
         {/* Quick Facts */}
-        <div className="p-5 md:p-6 lg:border-r lg:border-[rgba(255,255,255,0.08)]">
+        <div className="p-5 md:p-6">
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.5)] mb-4">
             Quick Facts
           </h3>
@@ -231,8 +231,10 @@ export function ContactFullCard({
           )}
         </div>
 
+        <div className="h-px bg-[rgba(255,255,255,0.08)]" />
+
         {/* Action Items */}
-        <div className="p-5 md:p-6 border-t lg:border-t-0 border-[rgba(255,255,255,0.08)]">
+        <div className="p-5 md:p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-[11px] font-semibold uppercase tracking-[0.8px] text-[rgba(255,255,255,0.5)]">
               Action Items

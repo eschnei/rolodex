@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FileText } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { cn } from '@/lib/utils/cn';
 import { TranscriptUploadModal } from './TranscriptUploadModal';
 
 interface TranscriptUploadButtonProps {
@@ -16,6 +16,7 @@ interface TranscriptUploadButtonProps {
 
 /**
  * Button that opens the transcript upload modal
+ * Styled to match the NotesFilter tabs
  */
 export function TranscriptUploadButton({
   contactId,
@@ -26,15 +27,20 @@ export function TranscriptUploadButton({
 
   return (
     <>
-      <Button
-        variant="secondary"
-        size="sm"
+      <button
         onClick={() => setIsModalOpen(true)}
-        className={className}
+        className={cn(
+          'inline-flex items-center gap-1.5 px-3 py-1.5',
+          'bg-bg-inset rounded-md',
+          'text-[12px] font-medium text-text-secondary',
+          'hover:text-text-primary hover:bg-[rgba(255,255,255,0.12)]',
+          'transition-all duration-150',
+          className
+        )}
       >
         <FileText size={14} strokeWidth={2} />
-        Upload Transcript
-      </Button>
+        Upload
+      </button>
 
       <TranscriptUploadModal
         isOpen={isModalOpen}
