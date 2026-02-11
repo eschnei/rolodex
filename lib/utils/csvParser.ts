@@ -146,9 +146,10 @@ export function autoDetectMappings(
  * Validate email format
  */
 export function isValidEmail(email: string): boolean {
-  if (!email) return true; // Empty is valid (not required)
+  const trimmed = email?.trim();
+  if (!trimmed) return true; // Empty is valid (not required)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  return emailRegex.test(trimmed);
 }
 
 export interface ValidationError {
@@ -180,7 +181,7 @@ export function validateAndMapRows(
     // Apply mappings
     Object.entries(mappings).forEach(([csvHeader, contactField]) => {
       if (contactField && row[csvHeader]) {
-        mappedData[contactField] = row[csvHeader];
+        mappedData[contactField] = row[csvHeader].trim();
 
         if (contactField === 'first_name') {
           hasFirstName = true;
