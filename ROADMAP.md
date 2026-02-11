@@ -48,6 +48,35 @@
 
 ---
 
+## Monetization
+
+### Subscription Tiers
+See [PRICING.md](./PRICING.md) for full details.
+
+| Tier | Price | Key Features |
+|------|-------|--------------|
+| Free | $0 | 25 contacts, basic features |
+| Pro | $15/mo | Unlimited contacts, AI summaries |
+| Business | $29/mo | Email automation, AI drafts |
+
+### Implementation
+- [ ] Stripe integration
+- [ ] Subscription management UI
+- [ ] Feature gating by tier
+- [ ] Usage tracking and limits
+- [ ] Billing portal
+
+---
+
+## Mobile (PWA)
+- [ ] Web app manifest
+- [ ] Service worker for offline
+- [ ] iOS splash screens and icons
+- [ ] Quick-add contact flow for events
+- [ ] Optimized mobile UI
+
+---
+
 ## Technical Improvements
 - [ ] Real-time updates with Supabase subscriptions
 - [ ] Offline support with service workers
