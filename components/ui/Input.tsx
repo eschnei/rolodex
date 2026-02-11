@@ -15,14 +15,15 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 /**
- * Input component following the NetCard design system
+ * Input component with glass morphism treatment
  *
  * Features:
+ * - Glass background with backdrop blur
  * - Optional label with proper accessibility
  * - Error state with visual indicator and message
  * - Helper text support
  * - Proper focus states with accent ring
- * - Follows design system spacing and typography
+ * - 0.12s transitions for smooth interactions
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -43,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={cn('flex flex-col gap-1', containerClassName)}>
         {label && (
-          <label htmlFor={inputId} className="type-caption text-text-tertiary">
+          <label htmlFor={inputId} className="type-caption text-[rgba(26,26,28,0.45)]">
             {label}
           </label>
         )}
@@ -51,14 +52,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={cn(
-            'w-full px-3 py-2',
-            'text-[14px] leading-relaxed bg-bg-secondary text-text-primary',
-            'border rounded-md',
-            error ? 'border-status-overdue' : 'border-border-primary',
-            'placeholder:text-text-tertiary',
-            'focus:outline-none focus:border-accent focus:ring-[3px] focus:ring-accent-subtle',
+            'w-full px-[14px] py-[10px]',
+            'text-[14px] leading-relaxed',
+            'bg-[rgba(255,255,255,0.5)]',
+            'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+            'text-[rgba(26,26,28,0.95)]',
+            'border rounded-[12px]',
+            error ? 'border-status-overdue' : 'border-[rgba(255,255,255,0.25)]',
+            'placeholder:text-[rgba(26,26,28,0.45)]',
+            'focus:outline-none focus:bg-[rgba(255,255,255,0.7)]',
+            'focus:border-[rgba(91,91,214,0.5)]',
+            'focus:shadow-[0_0_0_3px_rgba(91,91,214,0.15)]',
             'disabled:opacity-50 disabled:cursor-not-allowed',
-            'transition-[border-color,box-shadow] duration-fast',
+            'transition-all duration-[120ms] ease-out',
             className
           )}
           aria-invalid={error ? 'true' : undefined}
@@ -81,7 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </span>
         )}
         {!error && helperText && (
-          <span id={`${inputId}-helper`} className="type-caption text-text-tertiary">
+          <span id={`${inputId}-helper`} className="type-caption text-[rgba(26,26,28,0.45)]">
             {helperText}
           </span>
         )}

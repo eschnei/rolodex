@@ -17,16 +17,14 @@ interface ContactSummaryProps {
 }
 
 /**
- * Contact Summary Component
+ * Contact Summary Component - HERO treatment
  *
- * Displays the AI-generated "living summary" for a contact.
- * Follows brand guidelines: no "AI" labels - just shows content naturally.
- *
+ * The most prominent element on the contact detail page.
  * Features:
- * - Accent-left border styling (bg-bg-inset, border-l-2 border-accent)
+ * - Inset glass card with accent left border
+ * - Prominent styling for summary text
  * - Last updated timestamp
  * - Empty state prompting note addition
- * - Loading/processing state with skeleton
  */
 export function ContactSummary({
   summary,
@@ -39,11 +37,17 @@ export function ContactSummary({
     return (
       <div
         className={cn(
-          'bg-bg-inset border-l-2 border-accent rounded-r-lg p-4',
+          'p-5 md:p-6',
+          'rounded-[16px]',
+          'bg-[rgba(255,255,255,0.45)]',
+          'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+          'border border-[rgba(255,255,255,0.25)]',
+          'border-l-[3px] border-l-accent',
           className
         )}
+        aria-label="AI-generated summary loading"
       >
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-4">
           <ProcessingIndicator size="sm" label="Updating summary" />
         </div>
         <div className="space-y-2">
@@ -60,35 +64,55 @@ export function ContactSummary({
     return (
       <div
         className={cn(
-          'bg-bg-inset border-l-2 border-border-subtle rounded-r-lg p-4',
+          'p-5 md:p-6',
+          'rounded-[16px]',
+          'bg-[rgba(255,255,255,0.45)]',
+          'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+          'border border-[rgba(255,255,255,0.25)]',
+          'border-l-[3px] border-l-[rgba(255,255,255,0.3)]',
           className
         )}
+        aria-label="AI-generated summary"
       >
-        <p className="type-body text-text-tertiary italic">
+        <p className="text-[14px] italic text-[rgba(26,26,28,0.45)]">
           Add notes to generate a summary
         </p>
       </div>
     );
   }
 
-  // Summary display
+  // Summary display - HERO treatment
   return (
     <div
       className={cn(
-        'bg-bg-inset border-l-2 border-accent rounded-r-lg p-4',
+        'p-5 md:p-6',
+        'rounded-[16px]',
+        'bg-[rgba(255,255,255,0.45)]',
+        'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
+        'border border-[rgba(255,255,255,0.25)]',
+        'border-l-[3px] border-l-accent',
+        'shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]',
         className
       )}
+      aria-label="AI-generated summary"
     >
+      {/* Section label */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.6px] text-[rgba(26,26,28,0.45)]">
+          Summary
+        </span>
+      </div>
+
       {/* Summary text */}
-      <p className="type-body text-text-primary leading-relaxed">
+      <p className="text-[15px] leading-[1.7] text-[rgba(26,26,28,0.95)]">
         {summary}
       </p>
 
       {/* Last updated */}
-      <div className="mt-3 pt-3 border-t border-border-subtle">
-        <p className="type-small text-text-tertiary">
+      <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.25)]">
+        <p className="text-[12px] text-[rgba(26,26,28,0.45)]">
           Last updated{' '}
-          <RelativeTime date={updatedAt} className="text-text-tertiary" />
+          <RelativeTime date={updatedAt} className="text-[rgba(26,26,28,0.45)]" />
         </p>
       </div>
     </div>
@@ -106,7 +130,12 @@ export function ContactSummarySkeleton({
   return (
     <div
       className={cn(
-        'bg-bg-inset border-l-2 border-border-subtle rounded-r-lg p-4',
+        'p-5 md:p-6',
+        'rounded-[16px]',
+        'bg-[rgba(255,255,255,0.45)]',
+        'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',
+        'border border-[rgba(255,255,255,0.25)]',
+        'border-l-[3px] border-l-[rgba(255,255,255,0.3)]',
         className
       )}
     >
@@ -115,7 +144,7 @@ export function ContactSummarySkeleton({
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-2/3" />
       </div>
-      <div className="mt-3 pt-3 border-t border-border-subtle">
+      <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.25)]">
         <Skeleton className="h-3 w-32" />
       </div>
     </div>

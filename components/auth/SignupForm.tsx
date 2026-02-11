@@ -54,24 +54,24 @@ export default function SignupForm() {
   };
 
   return (
-    <Card>
+    <Card variant="auth">
       <CardBody>
-        <h1 className="type-h2 text-text-primary mb-6 text-center">
+        <h1 className="text-[22px] font-semibold text-[rgba(26,26,28,0.95)] mb-6 text-center">
           Create your account
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Error Message */}
           {error && (
-            <div className="p-3 rounded-md bg-accent-subtle border border-accent/20">
-              <p className="type-small text-accent-text">{error}</p>
+            <div className="p-3 rounded-[12px] bg-status-overdue-bg border border-[rgba(229,72,77,0.2)]">
+              <p className="text-[14px] text-status-overdue-text">{error}</p>
             </div>
           )}
 
           {/* Success Message */}
           {success && (
-            <div className="p-3 rounded-md bg-accent-subtle border border-accent/20">
-              <p className="type-small text-accent-text">{success}</p>
+            <div className="p-3 rounded-[12px] bg-status-ontrack-bg border border-[rgba(48,164,108,0.2)]">
+              <p className="text-[14px] text-status-ontrack-text">{success}</p>
             </div>
           )}
 
@@ -127,12 +127,12 @@ export default function SignupForm() {
 
         {/* Sign In Link */}
         <div className="mt-6 text-center">
-          <span className="type-small text-text-secondary">
+          <span className="text-[14px] text-[rgba(26,26,28,0.65)]">
             Already have an account?{' '}
           </span>
           <Link
             href="/login"
-            className="type-small text-accent-text hover:text-accent font-medium transition-colors duration-fast"
+            className="text-[14px] text-accent-text hover:text-accent font-medium transition-colors duration-150"
           >
             Sign in
           </Link>

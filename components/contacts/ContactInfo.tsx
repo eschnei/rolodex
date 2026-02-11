@@ -1,15 +1,4 @@
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Building2,
-  Briefcase,
-  MessageSquare,
-  Calendar,
-  Users,
-  type LucideIcon,
-} from 'lucide-react';
-import { Card, CardBody, CardHeader } from '@/components/ui';
+import { Card, CardBody } from '@/components/ui';
 import { RelativeTime } from '@/components/ui/RelativeTime';
 import { type Contact } from '@/lib/database.types';
 
@@ -19,138 +8,102 @@ interface ContactInfoProps {
 
 const COMMUNICATION_LABELS: Record<string, string> = {
   email: 'Email',
-  text: 'Text Message',
-  phone: 'Phone Call',
+  text: 'Text',
+  phone: 'Phone',
   'in-person': 'In Person',
 };
 
 /**
- * Contact information display component
- * Shows contact details, how we met, and personal intel in organized sections
+ * Quick Facts component - compact key-value grid
+ *
+ * Features:
+ * - Glass card treatment
+ * - 2-column grid: Label | Value
+ * - Clickable email/phone links
+ * - Compact, scannable layout
  */
 export function ContactInfo({ contact }: ContactInfoProps) {
   return (
-    <div className="space-y-6">
-      {/* Contact Details */}
-      <Card>
-        <CardHeader>
-          <h2 className="type-h3 text-text-primary">Contact Details</h2>
-        </CardHeader>
-        <CardBody className="space-y-4">
+    <Card variant="glass">
+      <CardBody className="p-5">
+        {/* Section label */}
+        <h3 className="text-[11px] font-semibold uppercase tracking-[0.6px] text-[rgba(26,26,28,0.45)] mb-4">
+          Quick Facts
+        </h3>
+
+        {/* Key-value grid */}
+        <div className="grid grid-cols-[100px_1fr] gap-y-3 gap-x-4">
+          {/* Email */}
           {contact.email && (
-            <InfoRow icon={Mail} label="Email">
+            <>
+              <span className="text-[12px] text-[rgba(26,26,28,0.45)]">Email</span>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-accent hover:text-accent-hover transition-colors duration-fast"
+                className="text-[13px] text-accent-text hover:underline truncate"
               >
                 {contact.email}
               </a>
-            </InfoRow>
+            </>
           )}
 
+          {/* Phone */}
           {contact.phone && (
-            <InfoRow icon={Phone} label="Phone">
+            <>
+              <span className="text-[12px] text-[rgba(26,26,28,0.45)]">Phone</span>
               <a
                 href={`tel:${contact.phone}`}
-                className="text-accent hover:text-accent-hover transition-colors duration-fast"
+                className="text-[13px] text-accent-text hover:underline"
               >
                 {contact.phone}
               </a>
-            </InfoRow>
+            </>
           )}
 
-          {contact.location && (
-            <InfoRow icon={MapPin} label="Location">
-              {contact.location}
-            </InfoRow>
+          {/* How We Met */}
+          {contact.how_we_met && (
+            <>
+              <span className="text-[12px] text-[rgba(26,26,28,0.45)]">How Met</span>
+              <span className="text-[13px] text-[rgba(26,26,28,0.95)] line-clamp-1">
+                {contact.how_we_met}
+              </span>
+            </>
           )}
 
-          {contact.company && (
-            <InfoRow icon={Building2} label="Company">
-              {contact.company}
-            </InfoRow>
-          )}
-
-          {contact.role && (
-            <InfoRow icon={Briefcase} label="Role">
-              {contact.role}
-            </InfoRow>
-          )}
-
-          <InfoRow icon={MessageSquare} label="Preferred Contact">
-            {COMMUNICATION_LABELS[contact.communication_preference] || contact.communication_preference}
-          </InfoRow>
-
-          <InfoRow icon={Calendar} label="Contact Cadence">
+          {/* Cadence */}
+          <span className="text-[12px] text-[rgba(26,26,28,0.45)]">Cadence</span>
+          <span className="text-[13px] text-[rgba(26,26,28,0.95)]">
             Every {contact.cadence_days || 30} days
-          </InfoRow>
+          </span>
 
-          <InfoRow icon={Calendar} label="Last Contacted">
+          {/* Prefers */}
+          <span className="text-[12px] text-[rgba(26,26,28,0.45)]">Prefers</span>
+          <span className="text-[13px] text-[rgba(26,26,28,0.95)]">
+            {COMMUNICATION_LABELS[contact.communication_preference] || contact.communication_preference}
+          </span>
+
+          {/* Last Contact */}
+          <span className="text-[12px] text-[rgba(26,26,28,0.45)]">Last Contact</span>
+          <span className="text-[13px] text-[rgba(26,26,28,0.95)]">
             {contact.last_contacted_at ? (
               <RelativeTime date={contact.last_contacted_at} />
             ) : (
-              <span className="text-text-tertiary">Never</span>
+              <span className="text-[rgba(26,26,28,0.45)]">Never</span>
             )}
-          </InfoRow>
+          </span>
+        </div>
 
-          <InfoRow icon={Users} label="Added">
-            <RelativeTime date={contact.created_at} />
-          </InfoRow>
-
-          {/* Show if no contact info at all */}
-          {!contact.email && !contact.phone && !contact.location && (
-            <p className="type-small text-text-tertiary italic">
-              No contact details added yet
-            </p>
-          )}
-        </CardBody>
-      </Card>
-
-      {/* How We Met */}
-      {contact.how_we_met && (
-        <Card>
-          <CardHeader>
-            <h2 className="type-h3 text-text-primary">How We Met</h2>
-          </CardHeader>
-          <CardBody>
-            <p className="type-body text-text-secondary whitespace-pre-wrap">
-              {contact.how_we_met}
-            </p>
-          </CardBody>
-        </Card>
-      )}
-
-      {/* Personal Intel */}
-      {contact.personal_intel && (
-        <Card>
-          <CardHeader>
-            <h2 className="type-h3 text-text-primary">Personal Intel</h2>
-          </CardHeader>
-          <CardBody>
-            <p className="type-body text-text-secondary whitespace-pre-wrap">
+        {/* Personal Intel (if available) */}
+        {contact.personal_intel && (
+          <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.25)]">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.6px] text-[rgba(26,26,28,0.45)] block mb-2">
+              Personal Intel
+            </span>
+            <p className="text-[13px] text-[rgba(26,26,28,0.65)] whitespace-pre-wrap leading-relaxed">
               {contact.personal_intel}
             </p>
-          </CardBody>
-        </Card>
-      )}
-    </div>
-  );
-}
-
-interface InfoRowProps {
-  icon: LucideIcon;
-  label: string;
-  children: React.ReactNode;
-}
-
-function InfoRow({ icon: Icon, label, children }: InfoRowProps) {
-  return (
-    <div className="flex items-start gap-3">
-      <Icon size={16} className="text-text-tertiary mt-0.5 shrink-0" strokeWidth={1.5} />
-      <div className="flex-1 min-w-0">
-        <dt className="type-caption text-text-tertiary">{label}</dt>
-        <dd className="type-body text-text-primary mt-0.5">{children}</dd>
-      </div>
-    </div>
+          </div>
+        )}
+      </CardBody>
+    </Card>
   );
 }

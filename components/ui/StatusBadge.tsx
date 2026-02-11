@@ -8,7 +8,8 @@ interface StatusBadgeProps {
 }
 
 /**
- * Status badge component for displaying contact cadence status
+ * Status badge component with subtle borders for glass surfaces
+ *
  * Colors based on status:
  * - overdue: red (status-overdue-bg, status-overdue-text)
  * - due: amber (status-due-bg, status-due-text)
@@ -22,9 +23,9 @@ export function StatusBadge({ status, label, className }: StatusBadgeProps) {
   };
 
   const statusColors: Record<CadenceStatus, string> = {
-    overdue: 'bg-status-overdue-bg text-status-overdue-text',
-    due: 'bg-status-due-bg text-status-due-text',
-    ontrack: 'bg-status-ontrack-bg text-status-ontrack-text',
+    overdue: 'bg-status-overdue-bg text-status-overdue-text border border-[rgba(229,72,77,0.2)]',
+    due: 'bg-status-due-bg text-status-due-text border border-[rgba(240,158,0,0.2)]',
+    ontrack: 'bg-status-ontrack-bg text-status-ontrack-text border border-[rgba(48,164,108,0.2)]',
   };
 
   const displayLabel = label || statusLabels[status];
@@ -32,12 +33,14 @@ export function StatusBadge({ status, label, className }: StatusBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5',
-        'text-[11px] font-medium leading-tight',
+        'inline-flex items-center px-[10px] py-[3px]',
+        'text-[11px] font-semibold leading-tight',
         'rounded-full whitespace-nowrap',
+        'tracking-[0.2px]',
         statusColors[status],
         className
       )}
+      aria-label={`Status: ${displayLabel}`}
     >
       {displayLabel}
     </span>

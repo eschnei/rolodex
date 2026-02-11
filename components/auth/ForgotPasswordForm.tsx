@@ -35,27 +35,27 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <Card>
+    <Card variant="auth">
       <CardBody>
-        <h1 className="type-h2 text-text-primary mb-2 text-center">
+        <h1 className="text-[22px] font-semibold text-[rgba(26,26,28,0.95)] mb-2 text-center">
           Reset your password
         </h1>
-        <p className="type-small text-text-secondary text-center mb-6">
+        <p className="text-[14px] text-[rgba(26,26,28,0.65)] text-center mb-6">
           We&apos;ll send a reset link to your email.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Error Message */}
           {error && (
-            <div className="p-3 rounded-md bg-accent-subtle border border-accent/20">
-              <p className="type-small text-accent-text">{error}</p>
+            <div className="p-3 rounded-[12px] bg-status-overdue-bg border border-[rgba(229,72,77,0.2)]">
+              <p className="text-[14px] text-status-overdue-text">{error}</p>
             </div>
           )}
 
           {/* Success Message */}
           {success && (
-            <div className="p-3 rounded-md bg-accent-subtle border border-accent/20">
-              <p className="type-small text-accent-text">{success}</p>
+            <div className="p-3 rounded-[12px] bg-status-ontrack-bg border border-[rgba(48,164,108,0.2)]">
+              <p className="text-[14px] text-status-ontrack-text">{success}</p>
             </div>
           )}
 
@@ -88,7 +88,7 @@ export default function ForgotPasswordForm() {
         <div className="mt-6 text-center">
           <Link
             href="/login"
-            className="type-small text-accent-text hover:text-accent font-medium transition-colors duration-fast inline-flex items-center gap-1"
+            className="text-[14px] text-accent-text hover:text-accent font-medium transition-colors duration-150 inline-flex items-center gap-1"
           >
             <svg
               width="16"

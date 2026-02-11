@@ -18,8 +18,12 @@ interface ConfirmModalProps {
 }
 
 /**
- * Confirmation modal for destructive or important actions
- * Supports danger (red), warning (amber), and default variants
+ * Confirmation modal with glass morphism treatment
+ *
+ * Features:
+ * - Glass backdrop with blur
+ * - Glass card container
+ * - Focus trap and keyboard support
  */
 export function ConfirmModal({
   isOpen,
@@ -82,21 +86,28 @@ export function ConfirmModal({
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      {/* Backdrop */}
+      {/* Glass backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className={cn(
+          'absolute inset-0',
+          'bg-[rgba(26,10,46,0.5)]',
+          'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]'
+        )}
         onClick={isLoading ? undefined : onClose}
         aria-hidden="true"
       />
 
-      {/* Modal */}
+      {/* Glass modal container */}
       <div
         ref={modalRef}
         tabIndex={-1}
         className={cn(
-          'relative z-10 w-full max-w-md mx-4',
-          'bg-bg-secondary border border-border-primary rounded-lg shadow-lg',
-          'p-6',
+          'relative z-10 w-full max-w-md mx-4 p-6',
+          'bg-[rgba(255,255,255,0.88)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.5)]',
+          'rounded-[20px]',
+          'shadow-[0_24px_80px_rgba(0,0,0,0.2),0_8px_32px_rgba(0,0,0,0.12)]',
           'focus:outline-none'
         )}
       >
@@ -106,8 +117,9 @@ export function ConfirmModal({
           disabled={isLoading}
           className={cn(
             'absolute top-4 right-4',
-            'text-text-tertiary hover:text-text-secondary',
-            'transition-colors duration-fast',
+            'text-[rgba(26,26,28,0.45)]',
+            'hover:text-[rgba(26,26,28,0.65)]',
+            'transition-colors duration-150',
             'disabled:opacity-50 disabled:cursor-not-allowed'
           )}
           aria-label="Close modal"
@@ -119,11 +131,11 @@ export function ConfirmModal({
         <div className="pr-8">
           <h2
             id="modal-title"
-            className="type-h3 text-text-primary mb-2"
+            className="text-[17px] font-semibold text-[rgba(26,26,28,0.95)] mb-2"
           >
             {title}
           </h2>
-          <p className="type-body text-text-secondary">{message}</p>
+          <p className="text-[14px] text-[rgba(26,26,28,0.65)]">{message}</p>
         </div>
 
         {/* Actions */}

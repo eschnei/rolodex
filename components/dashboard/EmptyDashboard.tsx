@@ -10,11 +10,11 @@ interface EmptyDashboardProps {
 }
 
 /**
- * Empty dashboard state component
+ * Empty dashboard state with glass treatment
  *
- * Shows different states based on:
- * - User has no contacts -> Prompt to add contacts
- * - User is all caught up -> Celebration state
+ * States:
+ * - No contacts: Prompt to add contacts
+ * - All caught up: Celebration state
  */
 export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) {
   if (!hasContacts) {
@@ -22,8 +22,11 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
       <div
         className={cn(
           'flex flex-col items-center justify-center',
-          'p-8 bg-bg-secondary border border-border-subtle rounded-lg',
-          'text-center',
+          'p-8 text-center',
+          'rounded-[16px]',
+          'bg-[rgba(255,255,255,0.6)]',
+          'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
+          'border border-[rgba(255,255,255,0.25)]',
           className
         )}
       >
@@ -31,24 +34,28 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
           <Users size={32} className="text-accent-text" strokeWidth={1.5} />
         </div>
 
-        <h2 className="type-h2 text-text-primary mb-2">No contacts yet</h2>
+        <h2 className="text-[22px] font-semibold text-[rgba(26,26,28,0.95)] mb-2">
+          Your network starts here.
+        </h2>
 
-        <p className="type-body text-text-secondary mb-6 max-w-sm">
-          Start building your network by adding your first contact. We will
-          help you stay in touch with the people who matter.
+        <p className="text-[14px] text-[rgba(26,26,28,0.65)] mb-6 max-w-sm">
+          Add your first contact to start building and maintaining meaningful relationships.
         </p>
 
         <Link
           href="/contacts/new"
           className={cn(
-            'inline-flex items-center gap-2 px-4 py-2',
+            'inline-flex items-center gap-2 px-5 py-2.5',
             'bg-accent text-text-inverse',
-            'rounded-md font-medium',
-            'hover:bg-accent-hover transition-colors duration-fast',
+            'rounded-[12px] font-medium',
+            'shadow-[0_2px_8px_rgba(91,91,214,0.35),inset_0_1px_0_rgba(255,255,255,0.15)]',
+            'hover:bg-accent-hover hover:translate-y-[-1px]',
+            'hover:shadow-[0_4px_12px_rgba(91,91,214,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]',
+            'transition-all duration-[120ms] ease-out',
             'focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2'
           )}
         >
-          Add Your First Contact
+          + Add Contact
         </Link>
       </div>
     );
@@ -58,12 +65,15 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
     <div
       className={cn(
         'flex flex-col items-center justify-center',
-        'p-8 bg-status-ontrack-bg border border-status-ontrack/20 rounded-lg',
-        'text-center',
+        'p-8 text-center',
+        'rounded-[16px]',
+        'bg-[rgba(48,164,108,0.08)]',
+        'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
+        'border border-[rgba(48,164,108,0.2)]',
         className
       )}
     >
-      <div className="w-16 h-16 rounded-full bg-status-ontrack/20 flex items-center justify-center mb-4">
+      <div className="w-16 h-16 rounded-full bg-[rgba(48,164,108,0.2)] flex items-center justify-center mb-4">
         <CheckCircle2
           size={32}
           className="text-status-ontrack"
@@ -71,11 +81,11 @@ export function EmptyDashboard({ hasContacts, className }: EmptyDashboardProps) 
         />
       </div>
 
-      <h2 className="type-h2 text-status-ontrack-text mb-2">
+      <h2 className="text-[22px] font-semibold text-status-ontrack-text mb-2">
         You are all caught up!
       </h2>
 
-      <p className="type-body text-status-ontrack-text/80 max-w-sm">
+      <p className="text-[14px] text-status-ontrack-text/80 max-w-sm">
         Great job staying on top of your network. All your contacts are on
         track. Keep up the good work!
       </p>

@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation';
-import { PageContainer, Card, CardBody } from '@/components/ui';
+import { PageContainer } from '@/components/ui';
 import { ContactHeader } from '@/components/contacts/ContactHeader';
+import { ContactSummary } from '@/components/contacts/ContactSummary';
 import { ContactInfo } from '@/components/contacts/ContactInfo';
 import { ReachedOutButton } from '@/components/contacts/ReachedOutButton';
 import { DeleteContactButton } from '@/components/contacts/DeleteContactButton';
 import { NotesAndActionsSection } from '@/components/contacts/NotesAndActionsSection';
 import { createClient } from '@/lib/supabase/server';
 import type { Note, ActionItem } from '@/lib/database.types';
+import { cn } from '@/lib/utils/cn';
 
 interface ContactDetailPageProps {
   params: Promise<{ id: string }>;
@@ -73,29 +75,25 @@ export default async function ContactDetailPage({
 
   return (
     <PageContainer>
+      {/* Header with back nav, avatar, name, status */}
       <ContactHeader contact={contact} />
 
-      {/* Quick Actions */}
-      <div className="mt-6 mb-8">
-        <Card>
-          <CardBody className="flex items-center justify-between gap-4">
-            <div>
-              <h3 className="type-body text-text-primary font-medium">
-                Quick Actions
-              </h3>
-              <p className="type-small text-text-secondary">
-                Update your contact status
-              </p>
-            </div>
-            <ReachedOutButton contactId={contact.id} />
-          </CardBody>
-        </Card>
+      {/* Summary Section - HERO (most prominent) */}
+      <div className="mt-6">
+        <ContactSummary
+          summary={contact.ai_summary}
+          updatedAt={contact.updated_at}
+        />
       </div>
 
-      {/* Contact Information */}
-      <ContactInfo contact={contact} />
+      {/* Two-column layout: Action Items + Quick Facts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+        {/* Action Items Section - handled by NotesAndActionsSection */}
+        {/* Quick Facts */}
+        <ContactInfo contact={contact} />
+      </div>
 
-      {/* Notes and Action Items Grid with integrated Summary */}
+      {/* Notes & Transcripts section */}
       <NotesAndActionsSection
         contact={contact}
         initialNotes={notes}
@@ -103,18 +101,31 @@ export default async function ContactDetailPage({
       />
 
       {/* Danger Zone */}
-      <div className="mt-8 pt-8 border-t border-border-subtle">
+      <div className="mt-8 pt-8 border-t border-[rgba(255,255,255,0.25)]">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h3 className="type-body text-text-primary font-medium">
+            <h3 className="text-[14px] font-medium text-[rgba(26,26,28,0.95)]">
               Danger Zone
             </h3>
-            <p className="type-small text-text-secondary">
+            <p className="text-[13px] text-[rgba(26,26,28,0.65)]">
               Permanently delete this contact and all associated data
             </p>
           </div>
           <DeleteContactButton contactId={contact.id} contactName={fullName} />
         </div>
+      </div>
+
+      {/* Sticky Footer - I Just Reached Out only (no Schedule Call) */}
+      <div
+        className={cn(
+          'sticky bottom-0 -mx-5 px-5 py-4 mt-8',
+          'bg-[rgba(255,255,255,0.72)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border-t border-[rgba(255,255,255,0.25)]',
+          'flex justify-center'
+        )}
+      >
+        <ReachedOutButton contactId={contact.id} />
       </div>
     </PageContainer>
   );

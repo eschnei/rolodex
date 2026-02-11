@@ -18,37 +18,54 @@ interface StatCardProps {
 
 function StatCard({ label, value, icon, variant = 'default' }: StatCardProps) {
   const variantStyles = {
-    default: 'bg-bg-secondary text-text-primary',
-    overdue: 'bg-status-overdue-bg text-status-overdue-text',
-    due: 'bg-status-due-bg text-status-due-text',
-    ontrack: 'bg-status-ontrack-bg text-status-ontrack-text',
-    streak: 'bg-accent-subtle text-accent-text',
+    default: cn(
+      'bg-[rgba(255,255,255,0.6)]',
+      'border-[rgba(255,255,255,0.25)]',
+      'text-[rgba(26,26,28,0.95)]'
+    ),
+    overdue: cn(
+      'bg-status-overdue-bg',
+      'border-[rgba(229,72,77,0.2)]',
+      'text-status-overdue-text'
+    ),
+    due: cn(
+      'bg-status-due-bg',
+      'border-[rgba(240,158,0,0.2)]',
+      'text-status-due-text'
+    ),
+    ontrack: cn(
+      'bg-status-ontrack-bg',
+      'border-[rgba(48,164,108,0.2)]',
+      'text-status-ontrack-text'
+    ),
+    streak: cn(
+      'bg-accent-subtle',
+      'border-[rgba(91,91,214,0.2)]',
+      'text-accent-text'
+    ),
   };
 
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center p-4 rounded-lg border border-border-subtle',
-        'transition-all duration-fast',
+        'flex flex-col items-center justify-center',
+        'p-4 rounded-[16px] border',
+        'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
+        'transition-all duration-150',
         variantStyles[variant]
       )}
     >
       <div className="flex items-center gap-2 mb-1">
         {icon}
-        <span className="text-h2 font-semibold">{value}</span>
+        <span className="text-[22px] font-semibold">{value}</span>
       </div>
-      <span className="type-caption text-center">{label}</span>
+      <span className="text-[12px] font-medium text-center opacity-80">{label}</span>
     </div>
   );
 }
 
 /**
- * Dashboard stats component showing key metrics
- * - Total contacts
- * - Overdue count (red)
- * - Due today/soon count (amber)
- * - On track count (green)
- * - Current streak
+ * Dashboard stats with glass treatment
  */
 export function DashboardStats({ stats, className }: DashboardStatsProps) {
   const needsAttention = stats.overdueCount + stats.dueTodayCount;

@@ -6,14 +6,14 @@ import { EmptyContactsState } from './EmptyContactsState';
 import { SearchInput } from '@/components/ui/SearchInput';
 import { useDebounce } from '@/lib/hooks/useDebounce';
 import { type Contact } from '@/lib/database.types';
+import { cn } from '@/lib/utils/cn';
 
 interface ContactListProps {
   contacts: Contact[];
 }
 
 /**
- * Contact list component with search filtering
- * Displays contacts in a vertical list with search functionality
+ * Contact list with glass-styled search and summary-first items
  */
 export function ContactList({ contacts }: ContactListProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,7 +63,7 @@ export function ContactList({ contacts }: ContactListProps) {
       />
 
       {/* Contact count */}
-      <p className="type-small text-text-tertiary">
+      <p className="text-[13px] text-[rgba(255,255,255,0.7)]">
         {filteredContacts.length === contacts.length
           ? `${contacts.length} contact${contacts.length === 1 ? '' : 's'}`
           : `${filteredContacts.length} of ${contacts.length} contacts`}
@@ -71,19 +71,27 @@ export function ContactList({ contacts }: ContactListProps) {
 
       {/* Contact list or empty search results */}
       {filteredContacts.length > 0 ? (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {filteredContacts.map((contact) => (
             <ContactListItem key={contact.id} contact={contact} />
           ))}
         </div>
       ) : (
-        <div className="p-8 bg-bg-secondary border border-border-subtle rounded-lg text-center">
-          <p className="type-body text-text-secondary">
+        <div
+          className={cn(
+            'p-8 text-center',
+            'rounded-[16px]',
+            'bg-[rgba(255,255,255,0.6)]',
+            'backdrop-blur-[16px] [-webkit-backdrop-filter:blur(16px)]',
+            'border border-[rgba(255,255,255,0.25)]'
+          )}
+        >
+          <p className="text-[14px] text-[rgba(26,26,28,0.65)]">
             No contacts match &quot;{debouncedQuery}&quot;
           </p>
           <button
             onClick={handleClearSearch}
-            className="type-small text-accent hover:text-accent-hover mt-2 transition-colors duration-fast"
+            className="text-[13px] text-accent hover:text-accent-hover mt-2 transition-colors duration-150"
           >
             Clear search
           </button>

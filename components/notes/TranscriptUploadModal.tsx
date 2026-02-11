@@ -20,14 +20,13 @@ interface TranscriptUploadModalProps {
 }
 
 /**
- * Modal for uploading transcripts
+ * Transcript upload modal with glass morphism treatment
  *
  * Features:
+ * - Glass backdrop and container
  * - Paste textarea for direct input
  * - File upload for .txt files
  * - 50k character limit with counter
- * - Preview of content
- * - Validation and error handling
  */
 export function TranscriptUploadModal({
   isOpen,
@@ -152,22 +151,29 @@ export function TranscriptUploadModal({
       aria-modal="true"
       aria-labelledby="transcript-modal-title"
     >
-      {/* Backdrop */}
+      {/* Glass backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className={cn(
+          'absolute inset-0',
+          'bg-[rgba(26,10,46,0.5)]',
+          'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]'
+        )}
         onClick={isSaving ? undefined : onClose}
         aria-hidden="true"
       />
 
-      {/* Modal */}
+      {/* Glass modal container */}
       <div
         ref={modalRef}
         tabIndex={-1}
         className={cn(
-          'relative z-10 w-full max-w-2xl mx-4',
-          'bg-bg-secondary border border-border-primary rounded-lg shadow-lg',
-          'p-6',
+          'relative z-10 w-full max-w-2xl mx-4 p-6',
           'max-h-[90vh] flex flex-col',
+          'bg-[rgba(255,255,255,0.88)]',
+          'backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)]',
+          'border border-[rgba(255,255,255,0.5)]',
+          'rounded-[20px]',
+          'shadow-[0_24px_80px_rgba(0,0,0,0.2),0_8px_32px_rgba(0,0,0,0.12)]',
           'focus:outline-none'
         )}
       >
@@ -175,7 +181,7 @@ export function TranscriptUploadModal({
         <div className="flex items-center justify-between mb-4">
           <h2
             id="transcript-modal-title"
-            className="type-h3 text-text-primary"
+            className="text-[17px] font-semibold text-[rgba(26,26,28,0.95)]"
           >
             Upload Transcript
           </h2>
@@ -183,8 +189,9 @@ export function TranscriptUploadModal({
             onClick={onClose}
             disabled={isSaving}
             className={cn(
-              'text-text-tertiary hover:text-text-secondary',
-              'transition-colors duration-fast',
+              'text-[rgba(26,26,28,0.45)]',
+              'hover:text-[rgba(26,26,28,0.65)]',
+              'transition-colors duration-150',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
             aria-label="Close modal"
@@ -208,16 +215,18 @@ export function TranscriptUploadModal({
             disabled={isSaving}
             className={cn(
               'w-full p-4',
-              'border-2 border-dashed border-border-primary rounded-lg',
+              'border-2 border-dashed border-[rgba(255,255,255,0.4)]',
+              'rounded-[16px]',
+              'bg-[rgba(255,255,255,0.3)]',
               'hover:border-accent hover:bg-accent-subtle/30',
-              'transition-all duration-fast',
+              'transition-all duration-150',
               'flex items-center justify-center gap-2',
-              'text-text-secondary hover:text-accent-text',
+              'text-[rgba(26,26,28,0.65)] hover:text-accent-text',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
           >
             <Upload size={18} />
-            <span className="type-body">
+            <span className="text-[14px]">
               {fileName ? (
                 <>
                   <FileText size={16} className="inline mr-2" />
@@ -232,9 +241,9 @@ export function TranscriptUploadModal({
 
         {/* Divider */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="flex-1 border-t border-border-subtle" />
-          <span className="type-small text-text-tertiary">or paste below</span>
-          <div className="flex-1 border-t border-border-subtle" />
+          <div className="flex-1 border-t border-[rgba(255,255,255,0.4)]" />
+          <span className="text-[13px] text-[rgba(26,26,28,0.45)]">or paste below</span>
+          <div className="flex-1 border-t border-[rgba(255,255,255,0.4)]" />
         </div>
 
         {/* Content textarea */}
@@ -254,14 +263,14 @@ export function TranscriptUploadModal({
             {error && (
               <>
                 <AlertCircle className="h-4 w-4 text-status-overdue" />
-                <span className="type-small text-status-overdue-text">{error}</span>
+                <span className="text-[13px] text-status-overdue-text">{error}</span>
               </>
             )}
           </div>
           <span
             className={cn(
-              'type-small',
-              isOverLimit ? 'text-status-overdue-text' : 'text-text-tertiary'
+              'text-[13px]',
+              isOverLimit ? 'text-status-overdue-text' : 'text-[rgba(26,26,28,0.45)]'
             )}
           >
             {charCount.toLocaleString()} / {MAX_CHARS.toLocaleString()}
